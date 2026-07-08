@@ -13,95 +13,134 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 <style>
 :root{
-  --bg:#f7f9f7; --card:#ffffff; --ink:#1f2d2a; --sub:#5c6f6a;
+  --bg:#f5f8f5; --card:#ffffff; --ink:#1e2b28; --sub:#5b6e69;
   --brand:#2f7d6d; --brand-soft:#e3f0ec; --brand-deep:#215c50;
   --accent:#e8a33d; --accent-soft:#fdf3e3;
   --line:#e2e9e6; --warn:#b4552d; --warn-soft:#faeee7;
-  --radius:14px; --shadow:0 2px 10px rgba(31,45,42,.06);
+  --radius:16px; --shadow:0 2px 12px rgba(31,45,42,.07);
+  --g-nat:#2f7d6d; --g-inf:#d98e2b; --g-edu:#3b6fb5; --g-metro:#7c5cbf; --g-local:#c25573;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  color:var(--ink);line-height:1.55;
+  background:
+    radial-gradient(600px 300px at 15% -5%, rgba(47,125,109,.10), transparent 60%),
+    radial-gradient(500px 260px at 90% 0%, rgba(232,163,61,.10), transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px 80px}
 
-header{padding:34px 0 10px;text-align:center}
-.logo{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--brand-deep);background:var(--brand-soft);padding:6px 14px;border-radius:999px;margin-bottom:14px}
-h1{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.3}
-h1 .hl{color:var(--brand)}
-.tagline{margin-top:10px;color:var(--sub);font-size:14.5px}
+/* ── 히어로 ── */
+header{position:relative;padding:38px 0 8px;text-align:center}
+.hero-deco{position:absolute;font-size:26px;opacity:.55;pointer-events:none;animation:float 6s ease-in-out infinite}
+.hero-deco.d1{left:4%;top:26px;animation-delay:0s}
+.hero-deco.d2{right:5%;top:44px;font-size:22px;animation-delay:1.4s}
+.hero-deco.d3{left:12%;bottom:-4px;font-size:19px;animation-delay:2.8s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.logo{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:var(--brand-deep);background:linear-gradient(120deg,#e3f0ec,#f4ecdc);padding:7px 16px;border-radius:999px;margin-bottom:16px;border:1px solid rgba(47,125,109,.15)}
+h1{font-size:25px;font-weight:800;letter-spacing:-.6px;line-height:1.34;word-break:keep-all}
+h1,.tagline,.q-label,.pcard h3,.benefit,.note,.region-notice{word-break:keep-all}
+h1 .hl{background:linear-gradient(120deg,var(--brand),#4aa08b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{margin-top:11px;color:var(--sub);font-size:14.5px}
+.hero-stats{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.hstat{font-size:12px;font-weight:650;color:var(--sub);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.hstat b{color:var(--brand-deep)}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:18px}
-.q-label{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
-.q-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12.5px;font-weight:700;flex:none}
+/* ── 입력 폼 ── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 20px;margin-top:20px}
+.q-block{padding:16px 0}
+.q-block + .q-block{border-top:1px dashed var(--line)}
+.q-block:first-child{padding-top:2px}
+.q-block:last-of-type{padding-bottom:6px}
+.q-label{font-size:15.5px;font-weight:750;margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.q-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#4aa08b);color:#fff;font-size:12.5px;font-weight:800;flex:none;box-shadow:0 2px 6px rgba(47,125,109,.3)}
 .q-hint{font-size:12.5px;color:var(--sub);font-weight:400;margin-left:2px}
 
 .row{display:flex;gap:10px}
-select{flex:1;appearance:none;-webkit-appearance:none;padding:12px 36px 12px 14px;font-size:15.5px;font-family:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:10px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%235c6f6a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>') no-repeat right 14px center}
-select:focus{outline:none;border-color:var(--brand)}
+select{flex:1;appearance:none;-webkit-appearance:none;padding:12px 36px 12px 14px;font-size:15.5px;font-family:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:11px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%235c6f6a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>') no-repeat right 14px center;transition:border-color .15s, box-shadow .15s}
+select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,125,109,.12)}
 
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;transition:.15s}
-.chip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
-.chip:active{transform:scale(.97)}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;transition:all .18s}
+.chip:hover{border-color:#b9cdc6}
+.chip.on{background:linear-gradient(135deg,var(--brand),#3d907d);border-color:transparent;color:#fff;font-weight:650;box-shadow:0 3px 8px rgba(47,125,109,.28)}
+.chip:active{transform:scale(.96)}
 
-.q-block{margin-bottom:22px}
-.q-block:last-child{margin-bottom:0}
-
-.cta{width:100%;margin-top:20px;padding:16px;font-size:17px;font-weight:700;font-family:inherit;color:#fff;background:var(--brand);border:none;border-radius:12px;cursor:pointer;box-shadow:0 4px 14px rgba(47,125,109,.3)}
+.cta{width:100%;margin-top:18px;padding:17px;font-size:17px;font-weight:750;font-family:inherit;color:#fff;background:linear-gradient(120deg,var(--brand-deep),var(--brand) 55%,#4aa08b);border:none;border-radius:14px;cursor:pointer;box-shadow:0 6px 18px rgba(47,125,109,.35);transition:transform .15s, box-shadow .15s}
+.cta:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(47,125,109,.4)}
 .cta:active{transform:scale(.985)}
+.cta .arr{display:inline-block;transition:transform .2s}
+.cta:hover .arr{transform:translateX(4px)}
 
-/* 결과 */
+/* ── 결과 ── */
 #results{display:none}
-.summary{margin:26px 0 6px;text-align:center}
-.summary .big{font-size:20px;font-weight:800}
-.summary .big em{font-style:normal;color:var(--brand);font-size:24px}
-.summary .sub{font-size:13.5px;color:var(--sub);margin-top:5px}
-.back-btn{display:block;margin:14px auto 0;background:none;border:none;color:var(--sub);font-size:13.5px;font-family:inherit;text-decoration:underline;cursor:pointer}
+.summary{margin:26px 0 4px;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 18px}
+.summary .big{font-size:19px;font-weight:800;letter-spacing:-.3px}
+.summary .big em{font-style:normal;font-size:30px;background:linear-gradient(120deg,var(--brand),#4aa08b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.summary .sub{font-size:13px;color:var(--sub);margin-top:7px}
+.sum-actions{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.sum-btn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:650;font-family:inherit;color:var(--sub);cursor:pointer;transition:all .15s}
+.sum-btn:hover{border-color:var(--brand);color:var(--brand-deep)}
 
-.group-title{margin:26px 4px 4px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
-.group-title .cnt{font-size:13px;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:2px 10px}
-.group-desc{font-size:12.5px;color:var(--sub);margin:2px 4px 0}
+.group-title{margin:30px 2px 3px;font-size:16.5px;font-weight:800;display:flex;align-items:center;gap:9px}
+.group-title .g-ico{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;font-size:16px;background:color-mix(in srgb, var(--gc) 13%, white);flex:none}
+.group-title .cnt{font-size:12.5px;color:#fff;background:var(--gc);border-radius:999px;padding:2px 10px;font-weight:700}
+.group-desc{font-size:12.5px;color:var(--sub);margin:3px 2px 0 43px}
 
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:12px}
-.pcard.check{border-left:4px solid var(--accent)}
-.pcard h3{font-size:16.5px;font-weight:750;letter-spacing:-.3px;line-height:1.35}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.tag{font-size:11.5px;padding:3px 9px;border-radius:6px;background:var(--brand-soft);color:var(--brand-deep);font-weight:600}
+.pcard{position:relative;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gc, var(--brand));border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:13px;transition:transform .18s, box-shadow .18s;animation:rise .35s ease both}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(31,45,42,.11)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pcard.check{background:linear-gradient(180deg,#fffdf8,#fff)}
+.pcard h3{font-size:16.5px;font-weight:750;letter-spacing:-.3px;line-height:1.35;padding-right:8px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11.5px;padding:3.5px 10px;border-radius:999px;background:color-mix(in srgb, var(--gc, var(--brand)) 11%, white);color:color-mix(in srgb, var(--gc, var(--brand)) 80%, black);font-weight:650}
 .tag.income{background:var(--accent-soft);color:#96650f}
 .tag.agency{background:#eef1f0;color:var(--sub)}
 .tag.caution{background:var(--warn-soft);color:var(--warn)}
 .benefit{margin-top:12px;font-size:14.5px}
 .benefit b{color:var(--brand-deep)}
-.apply{margin-top:9px;font-size:13.5px;color:var(--sub)}
-.apply b{color:var(--ink);font-weight:600}
-.note{margin-top:10px;background:var(--accent-soft);border-radius:9px;padding:10px 12px;font-size:13px;color:#6e4c0d}
-.note::before{content:"💡 ";}
-.pcard .links{margin-top:13px;display:flex;gap:8px}
-.link-btn{flex:1;text-align:center;padding:11px;border-radius:9px;font-size:14px;font-weight:650;text-decoration:none;background:var(--brand-soft);color:var(--brand-deep)}
-.link-btn:active{opacity:.8}
+.apply{margin-top:10px;font-size:13.5px;color:var(--sub);background:#f7faf9;border-radius:9px;padding:9px 12px}
+.apply b{color:var(--ink);font-weight:650}
+.note{margin-top:9px;background:var(--accent-soft);border-radius:10px;padding:10px 12px;font-size:13px;color:#6e4c0d;line-height:1.5}
+.note::before{content:"💡 "}
+.pcard .links{margin-top:13px}
+.link-btn{display:block;text-align:center;padding:12px;border-radius:11px;font-size:14px;font-weight:700;text-decoration:none;background:color-mix(in srgb, var(--gc, var(--brand)) 12%, white);color:color-mix(in srgb, var(--gc, var(--brand)) 75%, black);transition:all .15s}
+.link-btn:hover{background:var(--gc, var(--brand));color:#fff}
 .verified{margin-top:10px;font-size:11px;color:#9aaba6;text-align:right}
 
-.empty{padding:34px 16px;text-align:center;color:var(--sub);font-size:14.5px;background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);margin-top:12px}
+.empty{padding:38px 16px;text-align:center;color:var(--sub);font-size:14.5px;background:var(--card);border:1.5px dashed var(--line);border-radius:var(--radius);margin-top:14px}
+.region-notice{margin-top:18px;background:linear-gradient(120deg,#e3f0ec,#eef4ee);border:1px solid rgba(47,125,109,.15);border-radius:var(--radius);padding:15px 17px;font-size:13.5px;color:var(--brand-deep);line-height:1.6}
 
-.region-notice{margin-top:16px;background:var(--brand-soft);border-radius:var(--radius);padding:14px 16px;font-size:13.5px;color:var(--brand-deep)}
-
-footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:#93a5a0;line-height:1.7}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:#93a5a0;line-height:1.75;text-align:center}
 footer b{color:var(--sub)}
+footer .report{display:inline-block;margin-top:8px;color:var(--brand);font-weight:650;text-decoration:none;border:1px solid rgba(47,125,109,.25);border-radius:999px;padding:6px 15px;transition:all .15s}
+footer .report:hover{background:var(--brand);color:#fff}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
+  <span class="hero-deco d1">🎈</span>
+  <span class="hero-deco d2">🌱</span>
+  <span class="hero-deco d3">☀️</span>
   <div class="logo">🌱 블룸케어 BloomCare · 우리아이 지원제도 찾기</div>
   <h1>발달이 느린 우리 아이,<br><span class="hl">받을 수 있는 지원</span>을 놓치지 마세요</h1>
   <p class="tagline">아이 정보 몇 가지만 고르면,<br>정부·교육청·우리 동네 지원제도를 골라서 보여드려요.</p>
+  <div class="hero-stats">
+    <span class="hstat">📚 제도 <b id="statCount">87</b>건</span>
+    <span class="hstat">🔎 2026년 기준 확인</span>
+    <span class="hstat">⏱️ 1분이면 충분해요</span>
+  </div>
 </header>
 
 <!-- 입력 폼 -->
 <section class="card" id="form">
   <div class="q-block">
-    <div class="q-label"><span class="q-num">1</span>아이가 언제 태어났나요?</div>
+    <div class="q-label"><span class="q-num">1</span>🎂 아이가 언제 태어났나요?</div>
     <div class="row">
       <select id="birthYear" aria-label="출생 연도"></select>
       <select id="birthMonth" aria-label="출생 월"></select>
@@ -109,7 +148,7 @@ footer b{color:var(--sub)}
   </div>
 
   <div class="q-block">
-    <div class="q-label"><span class="q-num">2</span>어디에 살고 있나요?</div>
+    <div class="q-label"><span class="q-num">2</span>🗺️ 어디에 살고 있나요?</div>
     <div class="row">
       <select id="sido" aria-label="시·도"></select>
       <select id="sigungu" aria-label="시·군·구" style="display:none"></select>
@@ -117,7 +156,7 @@ footer b{color:var(--sub)}
   </div>
 
   <div class="q-block">
-    <div class="q-label"><span class="q-num">3</span>해당되는 것을 모두 골라주세요 <span class="q-hint">(없으면 그냥 넘어가세요)</span></div>
+    <div class="q-label"><span class="q-num">3</span>✅ 해당되는 것을 모두 골라주세요 <span class="q-hint">(없으면 그냥 넘어가세요)</span></div>
     <div class="chips" id="statusChips">
       <button type="button" class="chip" data-key="disability_reg">장애인 등록이 되어 있어요</button>
       <button type="button" class="chip" data-key="diagnosis">병원 진단서·의뢰서가 있어요</button>
@@ -127,7 +166,7 @@ footer b{color:var(--sub)}
   </div>
 
   <div class="q-block">
-    <div class="q-label"><span class="q-num">4</span>가구 소득은 어느 정도인가요? <span class="q-hint">대략이면 충분해요</span></div>
+    <div class="q-label"><span class="q-num">4</span>💰 가구 소득은 어느 정도인가요? <span class="q-hint">대략이면 충분해요</span></div>
     <div class="chips" id="incomeChips">
       <button type="button" class="chip" data-val="120">기준중위소득 120% 이하</button>
       <button type="button" class="chip" data-val="180">120~180% 사이</button>
@@ -136,7 +175,7 @@ footer b{color:var(--sub)}
     </div>
   </div>
 
-  <button class="cta" onclick="showResults()">우리 아이 지원제도 찾기 →</button>
+  <button class="cta" onclick="showResults()">우리 아이 지원제도 찾기 <span class="arr">→</span></button>
 </section>
 
 <!-- 결과 -->
@@ -144,7 +183,10 @@ footer b{color:var(--sub)}
   <div class="summary">
     <div class="big" id="sumText"></div>
     <div class="sub">카드의 <b>공식 안내 보기</b>를 누르면 정확한 신청 조건을 확인할 수 있어요.</div>
-    <button class="back-btn" onclick="backToForm()">← 조건 다시 고르기</button>
+    <div class="sum-actions">
+      <button class="sum-btn" onclick="backToForm()">← 조건 다시 고르기</button>
+      <button class="sum-btn" id="shareBtn" onclick="copyLink()">🔗 링크 복사</button>
+    </div>
   </div>
   <div id="resultList"></div>
 </section>
@@ -152,12 +194,12 @@ footer b{color:var(--sub)}
 <footer>
   <b>이용 안내</b> · 이 서비스는 공식 기관이 아닌 정보 정리 서비스입니다. 지원 금액과 자격 기준은 매년 바뀌므로, 신청 전 반드시 각 제도의 공식 안내(링크)와 주민센터·특수교육지원센터에서 최종 확인해 주세요.<br>
   <b>블룸케어 BloomCare</b> · 17년차 언어재활사가 만들었습니다 🌱<br>
-  잘못된 정보나 추가하고 싶은 지역이 있다면 <a href="mailto:skdyddns@gmail.com?subject=%5B%EB%B8%94%EB%A3%B8%EC%BC%80%EC%96%B4%20%EC%A0%9C%EB%B3%B4%5D" style="color:var(--brand);font-weight:600">✉️ 제보하기</a>로 알려주세요.
+  <a class="report" href="mailto:skdyddns@gmail.com?subject=%5B%EB%B8%94%EB%A3%B8%EC%BC%80%EC%96%B4%20%EC%A0%9C%EB%B3%B4%5D">✉️ 잘못된 정보·지역 추가 제보하기</a>
 </footer>
 
 </div>
 
-<script src="data/programs.js"></script>
+<script src="data/programs.js?v=110"></script>
 <script>
 // ---------- 폼 초기화 ----------
 const $ = s => document.querySelector(s);
@@ -174,7 +216,8 @@ yearSel.value = now.getFullYear() - 4; // 기본값: 만 3~4세
 const SIDO = ["인천","서울","경기","부산","대구","광주","대전","울산","세종","강원","충북","충남","전북","전남","경북","경남","제주"];
 const SIGUNGU = {
   "인천": ["연수구","중구","동구","미추홀구","부평구","계양구","서구","남동구","강화군","옹진군"],
-  "광주": ["동구","서구","남구","북구","광산구"]
+  "광주": ["동구","서구","남구","북구","광산구"],
+  "전남": ["목포시","여수시","순천시","나주시","광양시","담양군","곡성군","구례군","고흥군","보성군","화순군","장흥군","강진군","해남군","영암군","무안군","함평군","영광군","장성군","완도군","진도군","신안군"]
 };
 SIDO.forEach(s => $('#sido').insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
 $('#sido').addEventListener('change', e => {
@@ -281,45 +324,61 @@ const SCOPES = {
   'gj-namgu':     { sido: '광주', sigungu: '남구' },
   'gj-bukgu':     { sido: '광주', sigungu: '북구' },
   'gj-gwangsan':  { sido: '광주', sigungu: '광산구' },
+  'jn-mokpo':     { sido: '전남', sigungu: '목포시' },
+  'jn-yeosu':     { sido: '전남', sigungu: '여수시' },
+  'jn-suncheon':  { sido: '전남', sigungu: '순천시' },
+  'jn-naju':      { sido: '전남', sigungu: '나주시' },
+  'jn-gwangyang': { sido: '전남', sigungu: '광양시' },
+  'jn-muan':      { sido: '전남', sigungu: '무안군' },
+  'jn-hwasun':    { sido: '전남', sigungu: '화순군' },
 };
 // 지역 심층 데이터가 있는 시·도 (데이터에서 자동 도출)
 const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).filter(Boolean));
 
+// c: 그룹 색상 — nat(초록)=전국, inf(주황)=영유아, edu(파랑)=교육청, metro(보라)=시·도, local(로즈)=구·시군
+const C = { nat:'#2f7d6d', inf:'#d98e2b', edu:'#3b6fb5', metro:'#7c5cbf', local:'#c25573' };
 const GROUPS = [
-  { key: 'national',     title: '🇰🇷 전국 공통 제도', desc: '어디 살든 신청할 수 있는 정부 지원이에요.' },
-  { key: 'infant',       title: '👶 영유아·육아 공통 지원', desc: '발달이 걱정되기 시작한 가정이 어디서든 쓸 수 있는 검진·돌봄·현금 지원이에요.' },
-  { key: 'edu-incheon',  title: '🏫 인천시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'incheon',      title: '🏙️ 인천광역시', desc: '인천 시민이면 받을 수 있는 시 지원이에요.' },
-  { key: 'yeonsu',       title: '🏡 연수구', desc: '연수구에서 운영하는 우리 동네 지원이에요.' },
-  { key: 'edu-seoul',    title: '🏫 서울시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'seoul',        title: '🏙️ 서울특별시', desc: '서울 시민이면 받을 수 있는 시 지원이에요.' },
-  { key: 'edu-gyeonggi', title: '🏫 경기도교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'gyeonggi',     title: '🏙️ 경기도', desc: '경기도민이면 받을 수 있는 도 지원이에요.' },
-  { key: 'edu-jeonbuk',  title: '🏫 전북교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'jeonbuk',      title: '🏙️ 전북특별자치도', desc: '전북 도민이면 받을 수 있는 도 지원이에요.' },
-  { key: 'edu-jeonnam',  title: '🏫 전남교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'jeonnam',      title: '🏙️ 전라남도', desc: '전남 도민이면 받을 수 있는 도 지원이에요.' },
-  { key: 'edu-gwangju',  title: '🏫 광주시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
-  { key: 'gwangju',      title: '🏙️ 광주광역시', desc: '광주 시민이면 받을 수 있는 시 지원이에요.' },
-  { key: 'gj-donggu',    title: '🏡 광주 동구', desc: '동구에서 운영하는 우리 동네 지원이에요.' },
-  { key: 'gj-seogu',     title: '🏡 광주 서구', desc: '서구에서 운영하는 우리 동네 지원이에요.' },
-  { key: 'gj-namgu',     title: '🏡 광주 남구', desc: '남구에서 운영하는 우리 동네 지원이에요.' },
-  { key: 'gj-bukgu',     title: '🏡 광주 북구', desc: '북구에서 운영하는 우리 동네 지원이에요.' },
-  { key: 'gj-gwangsan',  title: '🏡 광주 광산구', desc: '광산구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'national',     ico:'🇰🇷', c:C.nat,   title: '전국 공통 제도', desc: '어디 살든 신청할 수 있는 정부 지원이에요.' },
+  { key: 'infant',       ico:'👶', c:C.inf,   title: '영유아·육아 공통 지원', desc: '발달이 걱정되기 시작한 가정이 어디서든 쓸 수 있는 검진·돌봄·현금 지원이에요.' },
+  { key: 'edu-incheon',  ico:'🏫', c:C.edu,   title: '인천시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'incheon',      ico:'🏙️', c:C.metro, title: '인천광역시', desc: '인천 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'yeonsu',       ico:'🏡', c:C.local, title: '연수구', desc: '연수구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'edu-seoul',    ico:'🏫', c:C.edu,   title: '서울시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'seoul',        ico:'🏙️', c:C.metro, title: '서울특별시', desc: '서울 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'edu-gyeonggi', ico:'🏫', c:C.edu,   title: '경기도교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'gyeonggi',     ico:'🏙️', c:C.metro, title: '경기도', desc: '경기도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-jeonbuk',  ico:'🏫', c:C.edu,   title: '전북교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'jeonbuk',      ico:'🏙️', c:C.metro, title: '전북특별자치도', desc: '전북 도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-jeonnam',  ico:'🏫', c:C.edu,   title: '전남교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'jeonnam',      ico:'🏙️', c:C.metro, title: '전라남도', desc: '전남 도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-gwangju',  ico:'🏫', c:C.edu,   title: '광주시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'gwangju',      ico:'🏙️', c:C.metro, title: '광주광역시', desc: '광주 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'gj-donggu',    ico:'🏡', c:C.local, title: '광주 동구', desc: '동구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-seogu',     ico:'🏡', c:C.local, title: '광주 서구', desc: '서구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-namgu',     ico:'🏡', c:C.local, title: '광주 남구', desc: '남구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-bukgu',     ico:'🏡', c:C.local, title: '광주 북구', desc: '북구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-gwangsan',  ico:'🏡', c:C.local, title: '광주 광산구', desc: '광산구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-mokpo',     ico:'🏡', c:C.local, title: '목포시', desc: '목포에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-yeosu',     ico:'🏡', c:C.local, title: '여수시', desc: '여수에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-suncheon',  ico:'🏡', c:C.local, title: '순천시', desc: '순천에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-naju',      ico:'🏡', c:C.local, title: '나주시', desc: '나주에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-gwangyang', ico:'🏡', c:C.local, title: '광양시', desc: '광양에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-muan',      ico:'🏡', c:C.local, title: '무안군', desc: '무안에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'jn-hwasun',    ico:'🏡', c:C.local, title: '화순군', desc: '화순에서 운영하는 우리 동네 지원이에요.' },
 ];
 
-function card(p, res) {
+function card(p, res, color) {
   const tags = [];
   if (p.target_age) tags.push(`<span class="tag">${p.target_age}</span>`);
   if (p.income_limit_text && p.income_limit_text !== '없음') tags.push(`<span class="tag income">${p.income_limit_text}</span>`);
   if (p.agency) tags.push(`<span class="tag agency">${p.agency}</span>`);
   if (res.show === 'check') tags.push(`<span class="tag caution">⚠ 확인 필요</span>`);
 
-  return `<div class="pcard ${res.show === 'check' ? 'check' : ''}">
+  return `<div class="pcard ${res.show === 'check' ? 'check' : ''}" style="--gc:${color}">
     <h3>${p.name}</h3>
     <div class="tags">${tags.join('')}</div>
     <p class="benefit">${p.benefit}</p>
-    <p class="apply"><b>신청:</b> ${p.how_to_apply}</p>
+    <p class="apply"><b>신청</b> · ${p.how_to_apply}</p>
     ${res.cautions.map(c => `<div class="note">${c}</div>`).join('')}
     ${p.note ? `<div class="note">${p.note}</div>` : ''}
     <div class="links">${p.link ? `<a class="link-btn" href="${p.link}" target="_blank" rel="noopener">공식 안내 보기</a>` : ''}</div>
@@ -331,14 +390,14 @@ function showResults() {
   const u = getInput();
   let matched = PROGRAMS.map(p => ({ p, res: matchProgram(p, u) })).filter(x => x.res.show !== 'hide');
 
-  // 지역 심층판이 매칭되면 같은 제도의 전국판 카드는 숨김
+  // 지역 심층판이 매칭되면 같은 제도의 상위(시·전국)판 카드는 숨김
   const superseded = new Set(matched.map(x => x.p.variant_of).filter(Boolean));
   matched = matched.filter(x => !superseded.has(x.p.id));
   const okCount = matched.filter(x => x.res.show === 'ok').length;
   const checkCount = matched.length - okCount;
 
   $('#sumText').innerHTML = matched.length
-    ? `지금 조건으로 <em>${okCount}개</em> 제도가 해당돼요${checkCount ? `<br><span style="font-size:14px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개</span>` : ''}`
+    ? `지금 조건으로 <em>${okCount}</em>개 제도가 해당돼요${checkCount ? `<br><span style="font-size:13.5px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개</span>` : ''}`
     : '조건에 맞는 제도를 찾지 못했어요';
 
   let html = '';
@@ -346,8 +405,8 @@ function showResults() {
     const items = matched.filter(x => x.p.scope === g.key);
     if (!items.length) return;
     items.sort((a, b) => (a.res.show === 'ok' ? 0 : 1) - (b.res.show === 'ok' ? 0 : 1));
-    html += `<div class="group-title">${g.title}<span class="cnt">${items.length}</span></div><div class="group-desc">${g.desc}</div>`;
-    html += items.map(x => card(x.p, x.res)).join('');
+    html += `<div class="group-title" style="--gc:${g.c}"><span class="g-ico">${g.ico}</span>${g.title}<span class="cnt">${items.length}</span></div><div class="group-desc">${g.desc}</div>`;
+    html += items.map(x => card(x.p, x.res, g.c)).join('');
   });
 
   if (!COVERED_SIDO.has(u.sido)) {
@@ -367,6 +426,17 @@ function backToForm() {
   $('#form').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function copyLink() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    const btn = $('#shareBtn');
+    btn.textContent = '✅ 복사됐어요!';
+    setTimeout(() => { btn.textContent = '🔗 링크 복사'; }, 1600);
+  });
+}
+
+// 히어로 제도 수 실데이터 반영
+$('#statCount').textContent = PROGRAMS.length;
 </script>
 </body>
 </html>
