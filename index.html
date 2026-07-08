@@ -267,6 +267,12 @@ const SCOPES = {
   'seoul':        { sido: '서울' },
   'edu-gyeonggi': { sido: '경기' },
   'gyeonggi':     { sido: '경기' },
+  'edu-jeonbuk':  { sido: '전북' },
+  'jeonbuk':      { sido: '전북' },
+  'edu-jeonnam':  { sido: '전남' },
+  'jeonnam':      { sido: '전남' },
+  'edu-gwangju':  { sido: '광주' },
+  'gwangju':      { sido: '광주' },
 };
 // 지역 심층 데이터가 있는 시·도 (데이터에서 자동 도출)
 const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).filter(Boolean));
@@ -281,6 +287,12 @@ const GROUPS = [
   { key: 'seoul',        title: '🏙️ 서울특별시', desc: '서울 시민이면 받을 수 있는 시 지원이에요.' },
   { key: 'edu-gyeonggi', title: '🏫 경기도교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
   { key: 'gyeonggi',     title: '🏙️ 경기도', desc: '경기도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-jeonbuk',  title: '🏫 전북교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'jeonbuk',      title: '🏙️ 전북특별자치도', desc: '전북 도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-jeonnam',  title: '🏫 전남교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'jeonnam',      title: '🏙️ 전라남도', desc: '전남 도민이면 받을 수 있는 도 지원이에요.' },
+  { key: 'edu-gwangju',  title: '🏫 광주시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'gwangju',      title: '🏙️ 광주광역시', desc: '광주 시민이면 받을 수 있는 시 지원이에요.' },
 ];
 
 function card(p, res) {
