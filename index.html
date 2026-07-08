@@ -199,7 +199,7 @@ footer .report:hover{background:var(--brand);color:#fff}
 
 </div>
 
-<script src="data/programs.js?v=110"></script>
+<script src="data/programs.js?v=125"></script>
 <script>
 // ---------- 폼 초기화 ----------
 const $ = s => document.querySelector(s);
@@ -332,6 +332,9 @@ const SCOPES = {
   'jn-muan':      { sido: '전남', sigungu: '무안군' },
   'jn-hwasun':    { sido: '전남', sigungu: '화순군' },
 };
+// 전남 군 지역(15곳)은 'jn-gun-군이름' 스코프로 일괄 등록
+["담양군","곡성군","구례군","고흥군","보성군","장흥군","강진군","해남군","영암군","함평군","영광군","장성군","완도군","진도군","신안군"]
+  .forEach(g => { SCOPES['jn-gun-' + g] = { sido: '전남', sigungu: g }; });
 // 지역 심층 데이터가 있는 시·도 (데이터에서 자동 도출)
 const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).filter(Boolean));
 
@@ -366,6 +369,10 @@ const GROUPS = [
   { key: 'jn-muan',      ico:'🏡', c:C.local, title: '무안군', desc: '무안에서 운영하는 우리 동네 지원이에요.' },
   { key: 'jn-hwasun',    ico:'🏡', c:C.local, title: '화순군', desc: '화순에서 운영하는 우리 동네 지원이에요.' },
 ];
+// 전남 군 지역 그룹 일괄 등록
+Object.keys(SCOPES).filter(k => k.startsWith('jn-gun-')).forEach(k => {
+  GROUPS.push({ key: k, ico: '🏡', c: C.local, title: SCOPES[k].sigungu, desc: '우리 동네 지원 창구예요.' });
+});
 
 function card(p, res, color) {
   const tags = [];
