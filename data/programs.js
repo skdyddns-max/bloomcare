@@ -353,25 +353,25 @@ const PROGRAMS = [
     age_min_months: 36, age_max_months: 216,
     requires_disability_reg: "no", requires_sped: true, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "소득 무관",
-    benefit: "치료지원비 <b>월 16만원</b>(연 192만원, 굳센카드). 물리·작업치료, 언어재활 등 장애유형별 치료영역을 등록 제공기관에서 이용. 제로페이 QR 모바일결제도 가능.",
+    benefit: "치료지원비 <b>월 16만원</b>(굳센카드). 물리·작업치료, 언어재활 등 장애유형별 치료영역을 등록 제공기관에서 이용. 월 잔액은 다음 달로 이월돼요(연도 이월은 불가). 제로페이 QR 모바일결제도 가능.",
     how_to_apply: "학교에 치료지원 신청 → 특수교육지원센터 진단·평가 → 개별화교육지원팀 결정 → 굳센카드 발급",
-    note: "발달재활 바우처와 같은 치료영역은 중복 제한이 있어요 — 영역을 달리해 병행할 수 있는지 학교·센터에 확인하세요. 2026학년도 금액은 학교 안내문으로 확인하세요.",
+    note: "발달재활 바우처와 같은 치료영역은 중복 제한이 있어요 — 영역을 달리해 병행할 수 있는지 학교·센터에 확인하세요.",
     link: "http://good.sen.go.kr/",
-    verified: "2025"
+    verified: "2026 확인 (교육청 FAQ 현행 기준)"
   },
   {
     id: "seoul-learning-diagnosis-center", scope: "edu-seoul",
     name: "서울학습진단성장센터 — 난독·경계선지능 통합진단",
-    agency: "서울시교육청 · 4개 권역 센터, 재학 학교 경유",
+    agency: "서울시교육청 · 11개 교육지원청 전체 운영",
     target_age: "서울 초·중·고 재학생 (난독·경계선지능 의심)",
     age_min_months: 72, age_max_months: 216,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "무료",
-    benefit: "학습종합진단검사(난독·경계선지능) <b>무료</b> → 전문지원기관 56곳 연계 '온리원' 맞춤 프로그램(주의집중·사고력·사회성 등), 보호자·교사 상담.",
-    how_to_apply: "보호자 직접 신청은 안 되고 <b>담임교사를 통해</b> 센터에 진단 의뢰(보호자 동의 필요)",
-    note: "3월 학교 기초학력 진단 후 의뢰가 일반적이에요. 담임선생님께 먼저 지원을 요청하세요.",
+    benefit: "학습종합진단검사(난독·경계선지능) <b>무료</b> → 전문지원기관 연계 '온리원' 맞춤 프로그램(주의집중·사고력·사회성 등), 보호자·교사 상담. 2025년 하반기부터 <b>11개 모든 교육지원청</b>으로 확대.",
+    how_to_apply: "통합진단은 <b>담임교사를 통해</b> 센터에 의뢰(보호자 동의 필요). 학부모 상담은 센터 홈페이지에서 직접 신청 가능",
+    note: "3월 학교 기초학력 진단 후 의뢰가 일반적이에요. 먼저 홈페이지 학부모 상담으로 문의하고, 담임선생님께 진단 의뢰를 요청하세요.",
     link: "https://s-iam.sen.go.kr/",
-    verified: "2025"
+    verified: "2026 확인 (11개 센터 체제)"
   },
 
   // ═══════════ 서울특별시 ═══════════
@@ -383,11 +383,11 @@ const PROGRAMS = [
     age_min_months: 15, age_max_months: 83,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "무료",
-    benefit: "발달선별검사(온라인·어린이집 방문) → 심화평가(언어·인지·자폐선별) → <b>1:1 부모코칭 4회</b> → 협약 치료기관 53곳+ 연계까지 원스톱 <b>전액 무료</b>.",
-    how_to_apply: "센터 누리집(seoul-i.kr)에서 온라인 신청 — 선착순 기수 모집(연중 3·5·7·9·11월경 공고)",
+    benefit: "발달선별검사(온라인 15~36개월 / 스크리닝 37개월~취학 전) → 심화평가(언어·인지·자폐선별) → <b>1:1 부모코칭 4회</b> → 협약 치료기관 연계까지 원스톱 <b>전액 무료</b>. 2026년부터 한부모가정 등 '찾아가는 발달검사' 확대.",
+    how_to_apply: "가정양육 아동은 센터 누리집(seoul-i.kr)에서 <b>상시 신청</b>, 어린이집 재원 아동은 어린이집 통해 신청",
     note: "병원 대기 없이 무료로 선별→심화평가까지 받을 수 있어서 발달지연 의심 초기에 최우선으로 추천해요. 치료비 자체는 지원하지 않아요(치료는 발달재활 바우처 등 활용).",
     link: "https://www.seoul-i.kr/",
-    verified: "2025"
+    verified: "2026 확인 (서울시 보도자료)"
   },
   {
     id: "seoul-mim-center", scope: "seoul",
@@ -398,15 +398,15 @@ const PROGRAMS = [
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "대부분 무료",
     benefit: "전국 최초 경계선지능인 전담 센터. 아동·청소년 문화예술·문해·사회성 프로그램, 심리상담·미술심리치료, 부모·가족 교육, 자조모임 — 연 2,000명 규모, 대부분 무료.",
-    how_to_apply: "센터 홈페이지(sbifc.org) '프로그램 신청'에서 기수별 온라인 신청",
+    how_to_apply: "센터 홈페이지(sbifc.org) '프로그램 신청'에서 기수별 온라인 신청 (02-733-8950)",
     note: "장애 등록 없이 이용할 수 있어요. 인기 프로그램은 조기 마감되니 모집 공고를 챙겨보세요.",
     link: "https://sbifc.org/",
-    verified: "2025"
+    verified: "2026 확인"
   },
   {
     id: "seoul-voucher-infant-dev", scope: "seoul",
     name: "영유아발달지원서비스 (서울 지역사회서비스)",
-    agency: "동주민센터 신청 (지원단 02-6353-0372~4)",
+    agency: "동주민센터 신청 (서울시 지역사회서비스지원단 02-6353-0372~4)",
     target_age: "만 0~6세 발달지연 우려 영유아",
     age_min_months: 0, age_max_months: 83,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
@@ -414,23 +414,23 @@ const PROGRAMS = [
     income_limit_pct: 140, income_limit_text: "기준중위소득 140% 이하",
     benefit: "발달검사에서 '추후관찰·주의' 등 지연 우려가 나온 영유아에게 <b>월 20만원 상당</b>(주 1~2회) 언어·인지·운동·정서 중재 프로그램(본인부담 월 2만~4만원).",
     how_to_apply: "동주민센터 방문 신청(발달검사 결과지 지참) → 국민행복카드로 등록기관 이용",
-    note: "장애 등록 전 단계 아이를 위한 틈새 지원이에요(등록 아동은 발달재활 바우처 대상이라 중복 불가). 자치구별 모집 시기·기관이 다르니 공고를 확인하세요.",
+    note: "장애 등록 전 단계 아이를 위한 틈새 지원이에요(등록 아동은 발달재활 바우처 대상이라 중복 불가, 아동청소년심리지원과도 동시 이용 불가). 시행 자치구가 15곳이라 거주 구 시행 여부부터 확인하세요.",
     link: "https://csi.welfare.seoul.kr/",
-    verified: "2025"
+    verified: "2026 확인 (서울시 사업표준안)"
   },
   {
     id: "seoul-voucher-child-psych", scope: "seoul",
     name: "아동청소년 심리지원서비스 (서울 지역사회서비스)",
-    agency: "동주민센터 신청 (지원단 02-6353-0372~4)",
+    agency: "동주민센터 신청 (서울시 지역사회서비스지원단 02-6353-0372~4)",
     target_age: "만 18세 이하 정서·행동 위험군",
     age_min_months: 0, age_max_months: 227,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
-    income_limit_pct: 140, income_limit_text: "기준중위소득 140% 이하",
-    benefit: "심리상담·놀이치료·미술치료 <b>월 18만원 상당</b>(주 1회 내외, 본인부담 월 1.8만~5.4만원). 12개월 이용.",
+    income_limit_pct: 160, income_limit_text: "기준중위소득 160% 이하 (2026 확대)",
+    benefit: "심리상담·놀이치료·미술치료 <b>월 20만원 상당</b>(주 1회 내외, 2026년 신규 선정 기준). 본인부담 월 1.8만~7.2만원(소득등급별). 12개월 이용, 2026년부터 부모상담 필수 포함.",
     how_to_apply: "동주민센터 방문 신청 — 의사 소견서, 심리검사 결과, 교사 추천서 등 위험군 증빙 필요",
-    note: "발달재활 바우처와 서비스 내용이 다르면 병행 가능한 경우가 있어요 — 동주민센터에서 중복 여부를 꼭 확인하세요. 모집 인원이 적어 조기 마감돼요.",
+    note: "2026년부터 소득기준이 160%로 완화됐어요. 발달재활 바우처와 서비스 내용이 다르면 병행 가능한 경우가 있어요 — 동주민센터에서 중복 여부를 꼭 확인하세요.",
     link: "https://csi.welfare.seoul.kr/",
-    verified: "2025"
+    verified: "2026 확인 (서울시 사업표준안)"
   },
   {
     id: "seoul-childcare-center", scope: "seoul",
@@ -457,7 +457,7 @@ const PROGRAMS = [
     age_min_months: 0, age_max_months: 228,
     requires_disability_reg: "no", requires_sped: true, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "소득 무관",
-    benefit: "<b>월 15만원 포인트</b>(꿈이든카드)로 치료지원·방과후 프로그램 이용. 병의원·복지관·사설치료실을 지역 구분 없이 이용 가능하고, <b>미사용 포인트는 다음 해 2월까지 이월</b>돼요(인천·서울과 다른 장점).",
+    benefit: "<b>월 15만원 포인트</b>(꿈이든카드)로 치료지원·방과후 프로그램 이용. 병의원·복지관·사설치료실을 지역 구분 없이 이용 가능하고, <b>미사용 포인트는 다음 해 2월까지 이월</b>돼요(인천은 매월 소멸, 서울은 연도 내에서만 이월).",
     how_to_apply: "매년 3월 초 소속 학교를 통해 신청 → 특수교육지원센터 심사 → 카드 발급 (전입·신규 선정은 수시)",
     note: "발달재활 바우처와 같은 치료영역은 중복 불가. 학교 방과후교실·자유수강권과 합산 월 15만원 한도예요.",
     link: "https://dreame.goe.or.kr/main/aboutInit.do",
@@ -471,11 +471,11 @@ const PROGRAMS = [
     age_min_months: 72, age_max_months: 192,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "무료",
-    benefit: "학교 선별검사 → 보호자 동의 시 <b>심층진단(웩슬러 지능검사) 무료</b> → 지역 아동발달센터 약 170곳 연계 맞춤 학습지원. 일부 교육지원청은 난독 별도 프로그램 운영.",
+    benefit: "학교 선별검사 → 보호자 동의 시 <b>심층진단(웩슬러 지능검사) 검사비 교육청 지원</b> → 지역 아동발달센터 약 170곳 연계 맞춤 학습지원. 2025년 한 해 5,592명 선별, 1,079명 심층진단.",
     how_to_apply: "재학 학교 담임교사를 통해 신청(보호자 동의 필수) 또는 관할 교육지원청 센터 문의",
-    note: "'장애 판정'이 아니라 무료 검사·학습지원이에요 — 동의를 망설이는 보호자가 많은데, 아이에게 맞는 지원을 받는 첫걸음이 될 수 있어요.",
+    note: "'장애 판정'이 아니라 검사·학습지원이에요 — 동의를 망설이는 보호자가 많은데, 아이에게 맞는 지원을 받는 첫걸음이 될 수 있어요.",
     link: "https://www.goe.go.kr",
-    verified: "2025"
+    verified: "2026 확인 (기초학력 보장 통합 운영 계획)"
   },
 
   // ═══════════ 경기도 ═══════════
@@ -487,11 +487,11 @@ const PROGRAMS = [
     age_min_months: 0, age_max_months: null,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
     income_limit_pct: null, income_limit_text: "무료",
-    benefit: "시군별 경계선지능인 평생교육 프로그램(2026년 28개 시군), 지역아동센터 방문형 '찾아가는 배움교실'(아동·청소년 맞춤 학습지원) 등. 2026년 상반기 경기도경계선지능인평생교육지원센터(수원) 개소.",
+    benefit: "시군별 경계선지능인 평생교육 프로그램(2026년 28개 시군 — 김포·수원·연천 제외), 지역아동센터 방문형 '찾아가는 배움교실'(아동·청소년 맞춤 학습지원) 등. 경기도경계선지능인평생교육지원센터(수원)는 2026년 6월 개소 목표로 추진 중.",
     how_to_apply: "거주 시군 평생학습관·지역아동센터 또는 경기평생교육진흥원(gill.or.kr) 공고로 신청",
-    note: "진단서·장애 등록 없이 참여할 수 있는 광역 단위 지원이에요. 시군별 프로그램이 다르니 거주지 공고를 확인하세요. 센터 개소 여부·연락처는 진흥원에 확인하세요.",
+    note: "진단서·장애 등록 없이 참여할 수 있는 광역 단위 지원이에요. 시군별 프로그램이 다르니 거주지 공고를 확인하세요. 전담센터의 실제 개소 여부·연락처는 진흥원에 확인하세요.",
     link: "https://www.gill.or.kr/gill/cntnts/i-108/web.do",
-    verified: "2025~2026"
+    verified: "2026 확인 (센터 개소는 미확인)"
   },
   {
     id: "gg-childcare-infant-dev", scope: "gyeonggi",
@@ -514,12 +514,12 @@ const PROGRAMS = [
     target_age: "만 18세 이하 심리·행동 문제 우려 아동",
     age_min_months: 0, age_max_months: 227,
     requires_disability_reg: "no", requires_sped: false, requires_parent_disability: false,
-    income_limit_pct: null, income_limit_text: "소득 무관 (우선순위 있음)",
-    benefit: "주 1회 회당 60분 <b>1:1 심리검사·놀이/미술/음악/인지 프로그램·부모상담</b>. 정부지원 월 3.6만~16.2만원 + 본인부담 월 1.8만원~. 12개월(재판정 시 최대 2년).",
+    income_limit_pct: null, income_limit_text: "중위 140% 이하 중심 (초과 시 본인부담↑)",
+    benefit: "주 1회 회당 60분 <b>1:1 심리검사·놀이/미술/음악/인지 프로그램·부모상담</b>. 정부지원 월 3.6만~16.2만원(소득등급별) + 본인부담. 12개월(재판정 시 최대 24개월). 경기 31개 시군 시행.",
     how_to_apply: "시군별 모집공고 후 행정복지센터 방문 신청 (우선순위: 사례관리 추천 > 약물치료 > 의사 진단서 > 학교·Wee센터 추천)",
-    note: "장애 등록이 필요 없어서 발달재활 바우처 미해당·대기 아동의 대안으로 실무에서 많이 써요. 시군별 모집 시기·단가가 달라요.",
+    note: "장애 등록이 필요 없어서 발달재활 바우처 미해당·대기 아동의 대안으로 실무에서 많이 써요. 소득이 140%를 넘어도 본인부담을 더 내면 이용 가능한 등급이 있어요.",
     link: "https://www.socialservice.or.kr:444/user/htmlEditor/rssi/view2.do?p_sn=8",
-    verified: "2025"
+    verified: "2025~2026 확인"
   },
   {
     id: "gg-voucher-infant-dev", scope: "gyeonggi",
@@ -545,9 +545,9 @@ const PROGRAMS = [
     income_limit_pct: null, income_limit_text: "사업별 상이",
     benefit: "국비 사업에 경기도가 자체 확대한 것들 — ①부모상담 지원을 <b>장애 미등록 아동까지 확대</b> ②최중증 긍정적 행동지원 이용료 폐지 ③가족돌봄 포인트 지원 등 (2025년 44개 사업).",
     how_to_apply: "사업별로 행정복지센터 또는 경기도발달장애인지원센터 경유 신청",
-    note: "전국 공통 부모상담지원은 등록 아동만 대상이지만, 경기도는 미등록 아동 가정도 가능해요 — 등록 전이라면 꼭 문의해 보세요.",
+    note: "전국 공통 부모상담지원은 등록 아동만 대상이지만, 경기도는 2025년부터 미등록 아동 가정까지 확대했어요 — 2026년 유지 여부는 경기도발달장애인지원센터에 확인 후 신청하세요.",
     link: "https://www.gg.go.kr",
-    verified: "2025 (사업별 세부 확인필요)"
+    verified: "2025 확인 (2026 유지 여부 미확인)"
   },
   {
     id: "gg-opportunity-income", scope: "gyeonggi",
@@ -559,8 +559,8 @@ const PROGRAMS = [
     income_limit_pct: 120, income_limit_text: "기준중위소득 120% 이하",
     benefit: "<b>월 10만원</b>(연 최대 120만원) 현금 지원. 주 2회 1시간 이상 건강·가치활동 인증 조건.",
     how_to_apply: "모집공고 기간에 경기민원24(gg24.gg.go.kr) 온라인 또는 행정복지센터 방문 신청",
-    note: "만 13세 이상 청소년부터 해당돼요. 연도별 모집 인원·기간이 다르니 공고를 확인하세요.",
+    note: "만 13세 이상 청소년부터 해당돼요. 모집은 연 1회(2026년은 3월 초)라 놓쳤다면 내년 공고를 챙기세요.",
     link: "https://gg24.gg.go.kr/svcreqst/selectSvcReqst.do?svc_seq=862",
-    verified: "2025"
+    verified: "2026 확인"
   }
 ];
