@@ -172,7 +172,10 @@ for (let m = 1; m <= 12; m++) {
 yearSel.value = now.getFullYear() - 4; // 기본값: 만 3~4세
 
 const SIDO = ["인천","서울","경기","부산","대구","광주","대전","울산","세종","강원","충북","충남","전북","전남","경북","경남","제주"];
-const SIGUNGU = { "인천": ["연수구","중구","동구","미추홀구","부평구","계양구","서구","남동구","강화군","옹진군"] };
+const SIGUNGU = {
+  "인천": ["연수구","중구","동구","미추홀구","부평구","계양구","서구","남동구","강화군","옹진군"],
+  "광주": ["동구","서구","남구","북구","광산구"]
+};
 SIDO.forEach(s => $('#sido').insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
 $('#sido').addEventListener('change', e => {
   const list = SIGUNGU[e.target.value];
@@ -273,6 +276,11 @@ const SCOPES = {
   'jeonnam':      { sido: '전남' },
   'edu-gwangju':  { sido: '광주' },
   'gwangju':      { sido: '광주' },
+  'gj-donggu':    { sido: '광주', sigungu: '동구' },
+  'gj-seogu':     { sido: '광주', sigungu: '서구' },
+  'gj-namgu':     { sido: '광주', sigungu: '남구' },
+  'gj-bukgu':     { sido: '광주', sigungu: '북구' },
+  'gj-gwangsan':  { sido: '광주', sigungu: '광산구' },
 };
 // 지역 심층 데이터가 있는 시·도 (데이터에서 자동 도출)
 const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).filter(Boolean));
@@ -293,6 +301,11 @@ const GROUPS = [
   { key: 'jeonnam',      title: '🏙️ 전라남도', desc: '전남 도민이면 받을 수 있는 도 지원이에요.' },
   { key: 'edu-gwangju',  title: '🏫 광주시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
   { key: 'gwangju',      title: '🏙️ 광주광역시', desc: '광주 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'gj-donggu',    title: '🏡 광주 동구', desc: '동구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-seogu',     title: '🏡 광주 서구', desc: '서구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-namgu',     title: '🏡 광주 남구', desc: '남구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-bukgu',     title: '🏡 광주 북구', desc: '북구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'gj-gwangsan',  title: '🏡 광주 광산구', desc: '광산구에서 운영하는 우리 동네 지원이에요.' },
 ];
 
 function card(p, res) {
