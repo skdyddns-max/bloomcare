@@ -259,6 +259,7 @@ function matchProgram(p, u) {
 // 지역 스코프 정의 — 새 지역 추가 시 여기와 GROUPS에만 등록하면 됨
 const SCOPES = {
   'national':     {},
+  'infant':       {},
   'edu-incheon':  { sido: '인천' },
   'incheon':      { sido: '인천' },
   'yeonsu':       { sido: '인천', sigungu: '연수구' },
@@ -272,6 +273,7 @@ const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).fil
 
 const GROUPS = [
   { key: 'national',     title: '🇰🇷 전국 공통 제도', desc: '어디 살든 신청할 수 있는 정부 지원이에요.' },
+  { key: 'infant',       title: '👶 영유아·육아 공통 지원', desc: '발달이 걱정되기 시작한 가정이 어디서든 쓸 수 있는 검진·돌봄·현금 지원이에요.' },
   { key: 'edu-incheon',  title: '🏫 인천시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
   { key: 'incheon',      title: '🏙️ 인천광역시', desc: '인천 시민이면 받을 수 있는 시 지원이에요.' },
   { key: 'yeonsu',       title: '🏡 연수구', desc: '연수구에서 운영하는 우리 동네 지원이에요.' },
