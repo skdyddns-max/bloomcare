@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>블룸케어 BloomCare — 우리아이 지원제도 찾기</title>
+<meta name="description" content="블룸케어(BloomCare) — 발달이 느린 아이, 장애 영유아·아동을 위한 정부·교육청·지자체 지원제도를 한눈에. 아이 정보를 입력하면 받을 수 있는 제도만 골라 보여드립니다.">
+<meta name="theme-color" content="#2f7d6d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="블룸케어 BloomCare — 우리아이 지원제도 찾기">
+<meta property="og:description" content="발달이 느린 아이를 위한 정부·교육청·우리 동네 지원제도, 아이 정보만 고르면 받을 수 있는 것만 골라 보여드려요.">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<style>
+:root{
+  --bg:#f7f9f7; --card:#ffffff; --ink:#1f2d2a; --sub:#5c6f6a;
+  --brand:#2f7d6d; --brand-soft:#e3f0ec; --brand-deep:#215c50;
+  --accent:#e8a33d; --accent-soft:#fdf3e3;
+  --line:#e2e9e6; --warn:#b4552d; --warn-soft:#faeee7;
+  --radius:14px; --shadow:0 2px 10px rgba(31,45,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 80px}
+
+header{padding:34px 0 10px;text-align:center}
+.logo{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--brand-deep);background:var(--brand-soft);padding:6px 14px;border-radius:999px;margin-bottom:14px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.5px;line-height:1.3}
+h1 .hl{color:var(--brand)}
+.tagline{margin-top:10px;color:var(--sub);font-size:14.5px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:18px}
+.q-label{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.q-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12.5px;font-weight:700;flex:none}
+.q-hint{font-size:12.5px;color:var(--sub);font-weight:400;margin-left:2px}
+
+.row{display:flex;gap:10px}
+select{flex:1;appearance:none;-webkit-appearance:none;padding:12px 36px 12px 14px;font-size:15.5px;font-family:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:10px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%235c6f6a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>') no-repeat right 14px center}
+select:focus{outline:none;border-color:var(--brand)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;transition:.15s}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+.chip:active{transform:scale(.97)}
+
+.q-block{margin-bottom:22px}
+.q-block:last-child{margin-bottom:0}
+
+.cta{width:100%;margin-top:20px;padding:16px;font-size:17px;font-weight:700;font-family:inherit;color:#fff;background:var(--brand);border:none;border-radius:12px;cursor:pointer;box-shadow:0 4px 14px rgba(47,125,109,.3)}
+.cta:active{transform:scale(.985)}
+
+/* 결과 */
+#results{display:none}
+.summary{margin:26px 0 6px;text-align:center}
+.summary .big{font-size:20px;font-weight:800}
+.summary .big em{font-style:normal;color:var(--brand);font-size:24px}
+.summary .sub{font-size:13.5px;color:var(--sub);margin-top:5px}
+.back-btn{display:block;margin:14px auto 0;background:none;border:none;color:var(--sub);font-size:13.5px;font-family:inherit;text-decoration:underline;cursor:pointer}
+
+.group-title{margin:26px 4px 4px;font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.group-title .cnt{font-size:13px;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:2px 10px}
+.group-desc{font-size:12.5px;color:var(--sub);margin:2px 4px 0}
+
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:12px}
+.pcard.check{border-left:4px solid var(--accent)}
+.pcard h3{font-size:16.5px;font-weight:750;letter-spacing:-.3px;line-height:1.35}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{font-size:11.5px;padding:3px 9px;border-radius:6px;background:var(--brand-soft);color:var(--brand-deep);font-weight:600}
+.tag.income{background:var(--accent-soft);color:#96650f}
+.tag.agency{background:#eef1f0;color:var(--sub)}
+.tag.caution{background:var(--warn-soft);color:var(--warn)}
+.benefit{margin-top:12px;font-size:14.5px}
+.benefit b{color:var(--brand-deep)}
+.apply{margin-top:9px;font-size:13.5px;color:var(--sub)}
+.apply b{color:var(--ink);font-weight:600}
+.note{margin-top:10px;background:var(--accent-soft);border-radius:9px;padding:10px 12px;font-size:13px;color:#6e4c0d}
+.note::before{content:"💡 ";}
+.pcard .links{margin-top:13px;display:flex;gap:8px}
+.link-btn{flex:1;text-align:center;padding:11px;border-radius:9px;font-size:14px;font-weight:650;text-decoration:none;background:var(--brand-soft);color:var(--brand-deep)}
+.link-btn:active{opacity:.8}
+.verified{margin-top:10px;font-size:11px;color:#9aaba6;text-align:right}
+
+.empty{padding:34px 16px;text-align:center;color:var(--sub);font-size:14.5px;background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);margin-top:12px}
+
+.region-notice{margin-top:16px;background:var(--brand-soft);border-radius:var(--radius);padding:14px 16px;font-size:13.5px;color:var(--brand-deep)}
+
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:#93a5a0;line-height:1.7}
+footer b{color:var(--sub)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">🌱 블룸케어 BloomCare · 우리아이 지원제도 찾기</div>
+  <h1>발달이 느린 우리 아이,<br><span class="hl">받을 수 있는 지원</span>을 놓치지 마세요</h1>
+  <p class="tagline">아이 정보 몇 가지만 고르면,<br>정부·교육청·우리 동네 지원제도를 골라서 보여드려요.</p>
+</header>
+
+<!-- 입력 폼 -->
+<section class="card" id="form">
+  <div class="q-block">
+    <div class="q-label"><span class="q-num">1</span>아이가 언제 태어났나요?</div>
+    <div class="row">
+      <select id="birthYear" aria-label="출생 연도"></select>
+      <select id="birthMonth" aria-label="출생 월"></select>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-label"><span class="q-num">2</span>어디에 살고 있나요?</div>
+    <div class="row">
+      <select id="sido" aria-label="시·도"></select>
+      <select id="sigungu" aria-label="시·군·구" style="display:none"></select>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-label"><span class="q-num">3</span>해당되는 것을 모두 골라주세요 <span class="q-hint">(없으면 그냥 넘어가세요)</span></div>
+    <div class="chips" id="statusChips">
+      <button type="button" class="chip" data-key="disability_reg">장애인 등록이 되어 있어요</button>
+      <button type="button" class="chip" data-key="diagnosis">병원 진단서·의뢰서가 있어요</button>
+      <button type="button" class="chip" data-key="sped">특수교육대상자로 선정됐어요</button>
+      <button type="button" class="chip" data-key="parent_disability">부모(양육자)가 등록 장애인이에요</button>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-label"><span class="q-num">4</span>가구 소득은 어느 정도인가요? <span class="q-hint">대략이면 충분해요</span></div>
+    <div class="chips" id="incomeChips">
+      <button type="button" class="chip" data-val="120">기준중위소득 120% 이하</button>
+      <button type="button" class="chip" data-val="180">120~180% 사이</button>
+      <button type="button" class="chip" data-val="999">180% 넘어요</button>
+      <button type="button" class="chip on" data-val="0">잘 모르겠어요</button>
+    </div>
+  </div>
+
+  <button class="cta" onclick="showResults()">우리 아이 지원제도 찾기 →</button>
+</section>
+
+<!-- 결과 -->
+<section id="results">
+  <div class="summary">
+    <div class="big" id="sumText"></div>
+    <div class="sub">카드의 <b>공식 안내 보기</b>를 누르면 정확한 신청 조건을 확인할 수 있어요.</div>
+    <button class="back-btn" onclick="backToForm()">← 조건 다시 고르기</button>
+  </div>
+  <div id="resultList"></div>
+</section>
+
+<footer>
+  <b>이용 안내</b> · 이 서비스는 공식 기관이 아닌 정보 정리 서비스입니다. 지원 금액과 자격 기준은 매년 바뀌므로, 신청 전 반드시 각 제도의 공식 안내(링크)와 주민센터·특수교육지원센터에서 최종 확인해 주세요.<br>
+  <b>블룸케어 BloomCare</b> · 17년차 언어재활사가 만들었습니다 🌱<br>
+  잘못된 정보나 추가하고 싶은 지역이 있다면 <a href="mailto:skdyddns@gmail.com?subject=%5B%EB%B8%94%EB%A3%B8%EC%BC%80%EC%96%B4%20%EC%A0%9C%EB%B3%B4%5D" style="color:var(--brand);font-weight:600">✉️ 제보하기</a>로 알려주세요.
+</footer>
+
+</div>
+
+<script src="data/programs.js"></script>
+<script>
+// ---------- 폼 초기화 ----------
+const $ = s => document.querySelector(s);
+const yearSel = $('#birthYear'), monthSel = $('#birthMonth');
+const now = new Date();
+for (let y = now.getFullYear(); y >= now.getFullYear() - 19; y--) {
+  yearSel.insertAdjacentHTML('beforeend', `<option value="${y}">${y}년</option>`);
+}
+for (let m = 1; m <= 12; m++) {
+  monthSel.insertAdjacentHTML('beforeend', `<option value="${m}">${m}월</option>`);
+}
+yearSel.value = now.getFullYear() - 4; // 기본값: 만 3~4세
+
+const SIDO = ["인천","서울","경기","부산","대구","광주","대전","울산","세종","강원","충북","충남","전북","전남","경북","경남","제주"];
+const SIGUNGU = { "인천": ["연수구","중구","동구","미추홀구","부평구","계양구","서구","남동구","강화군","옹진군"] };
+SIDO.forEach(s => $('#sido').insertAdjacentHTML('beforeend', `<option value="${s}">${s}</option>`));
+$('#sido').addEventListener('change', e => {
+  const list = SIGUNGU[e.target.value];
+  const gu = $('#sigungu');
+  if (list) {
+    gu.style.display = '';
+    gu.innerHTML = list.map(g => `<option value="${g}">${g}</option>`).join('');
+  } else { gu.style.display = 'none'; gu.innerHTML = ''; }
+});
+$('#sido').dispatchEvent(new Event('change'));
+
+// 칩 토글 (aria-pressed로 스크린리더에도 선택 상태 전달)
+const syncPressed = chip => chip.setAttribute('aria-pressed', chip.classList.contains('on'));
+document.querySelectorAll('#statusChips .chip, #incomeChips .chip').forEach(syncPressed);
+$('#statusChips').addEventListener('click', e => {
+  if (!e.target.classList.contains('chip')) return;
+  e.target.classList.toggle('on');
+  syncPressed(e.target);
+});
+$('#incomeChips').addEventListener('click', e => {
+  if (!e.target.classList.contains('chip')) return;
+  document.querySelectorAll('#incomeChips .chip').forEach(c => { c.classList.remove('on'); syncPressed(c); });
+  e.target.classList.add('on');
+  syncPressed(e.target);
+});
+
+// ---------- 매칭 ----------
+function getInput() {
+  const y = +yearSel.value, m = +monthSel.value;
+  const ageMonths = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+  const status = new Set([...document.querySelectorAll('#statusChips .chip.on')].map(c => c.dataset.key));
+  const income = +document.querySelector('#incomeChips .chip.on').dataset.val; // 0=모름
+  return { ageMonths, sido: $('#sido').value, sigungu: $('#sigungu').value || '', status, income };
+}
+
+// 각 제도 → {show:'ok'|'check'|'hide', cautions:[]}
+function matchProgram(p, u) {
+  const cautions = [];
+
+  // 연령
+  if (p.age_min_months != null && u.ageMonths < p.age_min_months) return { show: 'hide' };
+  if (p.age_max_months != null && u.ageMonths > p.age_max_months) return { show: 'hide' };
+
+  // 지역
+  const sc = SCOPES[p.scope] || {};
+  if (sc.sido && u.sido !== sc.sido) return { show: 'hide' };
+  if (sc.sigungu && u.sigungu !== sc.sigungu) return { show: 'hide' };
+
+  let ok = true;
+
+  // 장애등록 요건
+  if (p.requires_disability_reg === 'yes' && !u.status.has('disability_reg')) {
+    if (u.status.has('diagnosis')) { ok = false; cautions.push('장애 등록이 원칙이에요. 예외 인정 여부를 확인하세요.'); }
+    else return { show: 'hide' };
+  }
+  if (p.requires_disability_reg === 'partial' && !u.status.has('disability_reg')) {
+    if (u.status.has('diagnosis')) cautions.push('장애 미등록이어도 진단서·의뢰서로 신청 가능한지 확인하세요.');
+    else { ok = false; cautions.push('장애 등록 또는 병원 진단서(의뢰서)가 필요해요.'); }
+  }
+
+  // 특수교육대상자 요건
+  if (p.requires_sped && !u.status.has('sped')) {
+    ok = false; cautions.push('특수교육대상자 선정(교육청 심사)이 먼저 필요해요.');
+  }
+
+  // 부모 장애 요건 (언어발달지원사업 등)
+  if (p.requires_parent_disability && !u.status.has('parent_disability')) return { show: 'hide' };
+
+  // 아동 본인이 비장애여야 하는 제도
+  if (p.excludes_child_disability && u.status.has('disability_reg')) return { show: 'hide' };
+
+  // 특수교육대상자는 제외되는 제도 (인천 학습클리닉 등)
+  if (p.excludes_sped && u.status.has('sped')) return { show: 'hide' };
+
+  // 소득
+  if (p.income_limit_pct && u.income > 0 && u.income > p.income_limit_pct) {
+    ok = false; cautions.push(`소득 기준(${p.income_limit_text})을 넘을 수 있어요. 가구원 수에 따라 다르니 확인해 보세요.`);
+  }
+
+  return { show: ok ? 'ok' : 'check', cautions };
+}
+
+// ---------- 렌더 ----------
+// 지역 스코프 정의 — 새 지역 추가 시 여기와 GROUPS에만 등록하면 됨
+const SCOPES = {
+  'national':     {},
+  'edu-incheon':  { sido: '인천' },
+  'incheon':      { sido: '인천' },
+  'yeonsu':       { sido: '인천', sigungu: '연수구' },
+  'edu-seoul':    { sido: '서울' },
+  'seoul':        { sido: '서울' },
+  'edu-gyeonggi': { sido: '경기' },
+  'gyeonggi':     { sido: '경기' },
+};
+// 지역 심층 데이터가 있는 시·도 (데이터에서 자동 도출)
+const COVERED_SIDO = new Set(PROGRAMS.map(p => (SCOPES[p.scope] || {}).sido).filter(Boolean));
+
+const GROUPS = [
+  { key: 'national',     title: '🇰🇷 전국 공통 제도', desc: '어디 살든 신청할 수 있는 정부 지원이에요.' },
+  { key: 'edu-incheon',  title: '🏫 인천시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'incheon',      title: '🏙️ 인천광역시', desc: '인천 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'yeonsu',       title: '🏡 연수구', desc: '연수구에서 운영하는 우리 동네 지원이에요.' },
+  { key: 'edu-seoul',    title: '🏫 서울시교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'seoul',        title: '🏙️ 서울특별시', desc: '서울 시민이면 받을 수 있는 시 지원이에요.' },
+  { key: 'edu-gyeonggi', title: '🏫 경기도교육청', desc: '특수교육대상자 중심의 교육청 지원이에요.' },
+  { key: 'gyeonggi',     title: '🏙️ 경기도', desc: '경기도민이면 받을 수 있는 도 지원이에요.' },
+];
+
+function card(p, res) {
+  const tags = [];
+  if (p.target_age) tags.push(`<span class="tag">${p.target_age}</span>`);
+  if (p.income_limit_text && p.income_limit_text !== '없음') tags.push(`<span class="tag income">${p.income_limit_text}</span>`);
+  if (p.agency) tags.push(`<span class="tag agency">${p.agency}</span>`);
+  if (res.show === 'check') tags.push(`<span class="tag caution">⚠ 확인 필요</span>`);
+
+  return `<div class="pcard ${res.show === 'check' ? 'check' : ''}">
+    <h3>${p.name}</h3>
+    <div class="tags">${tags.join('')}</div>
+    <p class="benefit">${p.benefit}</p>
+    <p class="apply"><b>신청:</b> ${p.how_to_apply}</p>
+    ${res.cautions.map(c => `<div class="note">${c}</div>`).join('')}
+    ${p.note ? `<div class="note">${p.note}</div>` : ''}
+    <div class="links">${p.link ? `<a class="link-btn" href="${p.link}" target="_blank" rel="noopener">공식 안내 보기</a>` : ''}</div>
+    <div class="verified">기준: ${p.verified || '확인 중'}</div>
+  </div>`;
+}
+
+function showResults() {
+  const u = getInput();
+  let matched = PROGRAMS.map(p => ({ p, res: matchProgram(p, u) })).filter(x => x.res.show !== 'hide');
+
+  // 지역 심층판이 매칭되면 같은 제도의 전국판 카드는 숨김
+  const superseded = new Set(matched.map(x => x.p.variant_of).filter(Boolean));
+  matched = matched.filter(x => !superseded.has(x.p.id));
+  const okCount = matched.filter(x => x.res.show === 'ok').length;
+  const checkCount = matched.length - okCount;
+
+  $('#sumText').innerHTML = matched.length
+    ? `지금 조건으로 <em>${okCount}개</em> 제도가 해당돼요${checkCount ? `<br><span style="font-size:14px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개</span>` : ''}`
+    : '조건에 맞는 제도를 찾지 못했어요';
+
+  let html = '';
+  GROUPS.forEach(g => {
+    const items = matched.filter(x => x.p.scope === g.key);
+    if (!items.length) return;
+    items.sort((a, b) => (a.res.show === 'ok' ? 0 : 1) - (b.res.show === 'ok' ? 0 : 1));
+    html += `<div class="group-title">${g.title}<span class="cnt">${items.length}</span></div><div class="group-desc">${g.desc}</div>`;
+    html += items.map(x => card(x.p, x.res)).join('');
+  });
+
+  if (!COVERED_SIDO.has(u.sido)) {
+    const covered = [...COVERED_SIDO].join('·');
+    html += `<div class="region-notice">📍 지금은 <b>${covered}</b> 지역 정보를 먼저 담고 있어요. ${u.sido} 지역의 교육청·구청 지원은 순차적으로 추가할 예정이에요. 위의 전국 공통 제도는 ${u.sido}에서도 똑같이 신청할 수 있어요.</div>`;
+  }
+  if (!html) html = '<div class="empty">조건에 맞는 제도가 없어요.<br>상태(장애등록·진단서 등)를 바꿔서 다시 찾아보세요.</div>';
+
+  $('#resultList').innerHTML = html;
+  $('#form').style.display = 'none';
+  $('#results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToForm() {
+  $('#results').style.display = 'none';
+  $('#form').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
