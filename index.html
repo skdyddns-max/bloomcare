@@ -81,8 +81,8 @@ select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47
 .summary .big{font-size:19px;font-weight:800;letter-spacing:-.3px}
 .summary .big em{font-style:normal;font-size:30px;background:linear-gradient(120deg,var(--brand),#4aa08b);-webkit-background-clip:text;background-clip:text;color:transparent}
 .summary .sub{font-size:13px;color:var(--sub);margin-top:7px}
-.sum-actions{display:flex;gap:8px;justify-content:center;margin-top:14px}
-.sum-btn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:650;font-family:inherit;color:var(--sub);cursor:pointer;transition:all .15s}
+.sum-actions{display:flex;gap:6px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.sum-btn{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:12.5px;font-weight:650;font-family:inherit;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
 .sum-btn:hover{border-color:var(--brand);color:var(--brand-deep)}
 
 .group-title{margin:30px 2px 3px;font-size:16.5px;font-weight:800;display:flex;align-items:center;gap:9px}
@@ -113,6 +113,25 @@ select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47
 
 .empty{padding:38px 16px;text-align:center;color:var(--sub);font-size:14.5px;background:var(--card);border:1.5px dashed var(--line);border-radius:var(--radius);margin-top:14px}
 .region-notice{margin-top:18px;background:linear-gradient(120deg,#e3f0ec,#eef4ee);border:1px solid rgba(47,125,109,.15);border-radius:var(--radius);padding:15px 17px;font-size:13.5px;color:var(--brand-deep);line-height:1.6}
+
+/* ── 사용성: 점프바·접기·전화링크·플로팅 ── */
+.jumpbar{position:sticky;top:8px;z-index:50;display:flex;gap:7px;overflow-x:auto;padding:8px;margin:14px 0 0;background:rgba(245,248,245,.93);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;scrollbar-width:none}
+.jumpbar::-webkit-scrollbar{display:none}
+.jump{flex:none;font-size:12.5px;font-weight:700;font-family:inherit;border:none;cursor:pointer;padding:7px 13px;border-radius:999px;background:color-mix(in srgb, var(--jc) 12%, white);color:color-mix(in srgb, var(--jc) 75%, black);white-space:nowrap}
+.jump:active{transform:scale(.95)}
+.group-title{scroll-margin-top:70px}
+details.more{margin-top:9px}
+details.more summary{list-style:none;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--sub);background:#f2f6f4;border-radius:9px;padding:8px 12px;user-select:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"▸ ";color:var(--brand)}
+details.more[open] summary::before{content:"▾ "}
+details.more .note{margin-top:6px}
+.note.warn{background:var(--warn-soft);color:var(--warn)}
+.note.warn::before{content:"⚠️ "}
+a.tel{color:inherit;font-weight:750;text-decoration:underline;text-decoration-color:color-mix(in srgb, var(--gc, var(--brand)) 50%, transparent);text-decoration-thickness:2px;text-underline-offset:3px;white-space:nowrap}
+.fab{position:fixed;right:16px;bottom:20px;z-index:60;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:0 4px 14px rgba(31,45,42,.2);font-size:18px;color:var(--brand-deep);cursor:pointer;display:none;align-items:center;justify-content:center}
+.fab.show{display:flex}
+.sum-btn.on{background:var(--brand);border-color:var(--brand);color:#fff}
 
 footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:#93a5a0;line-height:1.75;text-align:center}
 footer b{color:var(--sub)}
@@ -182,14 +201,18 @@ footer .report:hover{background:var(--brand);color:#fff}
 <section id="results">
   <div class="summary">
     <div class="big" id="sumText"></div>
-    <div class="sub">카드의 <b>공식 안내 보기</b>를 누르면 정확한 신청 조건을 확인할 수 있어요.</div>
+    <div class="sub">밑줄 친 <b>전화번호는 누르면 바로 전화</b>돼요 · 정확한 조건은 <b>공식 안내 보기</b>에서 확인하세요.</div>
     <div class="sum-actions">
-      <button class="sum-btn" onclick="backToForm()">← 조건 다시 고르기</button>
-      <button class="sum-btn" id="shareBtn" onclick="copyLink()">🔗 링크 복사</button>
+      <button class="sum-btn" onclick="backToForm()">← 조건 수정</button>
+      <button class="sum-btn" id="onlyOkBtn" onclick="toggleOnlyOk()">✅ 바로 해당만</button>
+      <button class="sum-btn" id="shareBtn" onclick="copyLink()">🔗 결과 공유</button>
     </div>
   </div>
+  <div id="jumpbar"></div>
   <div id="resultList"></div>
 </section>
+
+<button class="fab" id="fabTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="맨 위로">↑</button>
 
 <footer>
   <b>이용 안내</b> · 이 서비스는 공식 기관이 아닌 정보 정리 서비스입니다. 지원 금액과 자격 기준은 매년 바뀌므로, 신청 전 반드시 각 제도의 공식 안내(링크)와 주민센터·특수교육지원센터에서 최종 확인해 주세요.<br>
@@ -374,26 +397,54 @@ Object.keys(SCOPES).filter(k => k.startsWith('jn-gun-')).forEach(k => {
   GROUPS.push({ key: k, ico: '🏡', c: C.local, title: SCOPES[k].sigungu, desc: '우리 동네 지원 창구예요.' });
 });
 
+// 전화번호를 탭-투-콜 링크로 변환 (예: 061-380-2775, 1577-0756, 062-608-2681~6)
+function linkifyTel(html) {
+  if (!html) return html;
+  return html.replace(/(0\d{1,2}-\d{3,4}-\d{4}|1\d{3}-\d{4})(~\d{1,4})?/g,
+    (m, num, range) => `<a class="tel" href="tel:${num.replace(/-/g, '')}">${num}${range || ''}</a>`);
+}
+
 function card(p, res, color) {
   const tags = [];
   if (p.target_age) tags.push(`<span class="tag">${p.target_age}</span>`);
   if (p.income_limit_text && p.income_limit_text !== '없음') tags.push(`<span class="tag income">${p.income_limit_text}</span>`);
-  if (p.agency) tags.push(`<span class="tag agency">${p.agency}</span>`);
+  if (p.agency) tags.push(`<span class="tag agency">${linkifyTel(p.agency)}</span>`);
   if (res.show === 'check') tags.push(`<span class="tag caution">⚠ 확인 필요</span>`);
 
   return `<div class="pcard ${res.show === 'check' ? 'check' : ''}" style="--gc:${color}">
     <h3>${p.name}</h3>
     <div class="tags">${tags.join('')}</div>
-    <p class="benefit">${p.benefit}</p>
-    <p class="apply"><b>신청</b> · ${p.how_to_apply}</p>
-    ${res.cautions.map(c => `<div class="note">${c}</div>`).join('')}
-    ${p.note ? `<div class="note">${p.note}</div>` : ''}
+    <p class="benefit">${linkifyTel(p.benefit)}</p>
+    <p class="apply"><b>신청</b> · ${linkifyTel(p.how_to_apply)}</p>
+    ${res.cautions.map(c => `<div class="note warn">${c}</div>`).join('')}
+    ${p.note ? `<details class="more"><summary>실무 팁 보기</summary><div class="note">${linkifyTel(p.note)}</div></details>` : ''}
     <div class="links">${p.link ? `<a class="link-btn" href="${p.link}" target="_blank" rel="noopener">공식 안내 보기</a>` : ''}</div>
     <div class="verified">기준: ${p.verified || '확인 중'}</div>
   </div>`;
 }
 
-function showResults() {
+// '바로 해당만 보기' 필터 상태
+let onlyOk = false;
+function toggleOnlyOk() {
+  onlyOk = !onlyOk;
+  $('#onlyOkBtn').classList.toggle('on', onlyOk);
+  showResults(true);
+}
+
+// 현재 조건을 URL에 저장 → 새로고침 복원·조건 포함 공유 가능
+function saveStateToURL(u) {
+  const q = new URLSearchParams({ y: yearSel.value, m: monthSel.value, sd: u.sido, inc: String(u.income) });
+  if (u.sigungu) q.set('sg', u.sigungu);
+  if (u.status.size) q.set('st', [...u.status].join(','));
+  history.replaceState(null, '', location.pathname + '?' + q.toString());
+}
+
+function jumpTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function showResults(keepScroll) {
   const u = getInput();
   let matched = PROGRAMS.map(p => ({ p, res: matchProgram(p, u) })).filter(x => x.res.show !== 'hide');
 
@@ -402,17 +453,19 @@ function showResults() {
   matched = matched.filter(x => !superseded.has(x.p.id));
   const okCount = matched.filter(x => x.res.show === 'ok').length;
   const checkCount = matched.length - okCount;
+  if (onlyOk) matched = matched.filter(x => x.res.show === 'ok');
 
-  $('#sumText').innerHTML = matched.length
-    ? `지금 조건으로 <em>${okCount}</em>개 제도가 해당돼요${checkCount ? `<br><span style="font-size:13.5px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개</span>` : ''}`
+  $('#sumText').innerHTML = matched.length || checkCount
+    ? `지금 조건으로 <em>${okCount}</em>개 제도가 해당돼요${checkCount ? `<br><span style="font-size:13.5px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개${onlyOk ? ' (숨김)' : ''}</span>` : ''}`
     : '조건에 맞는 제도를 찾지 못했어요';
 
-  let html = '';
+  let html = '', jumps = '';
   GROUPS.forEach(g => {
     const items = matched.filter(x => x.p.scope === g.key);
     if (!items.length) return;
     items.sort((a, b) => (a.res.show === 'ok' ? 0 : 1) - (b.res.show === 'ok' ? 0 : 1));
-    html += `<div class="group-title" style="--gc:${g.c}"><span class="g-ico">${g.ico}</span>${g.title}<span class="cnt">${items.length}</span></div><div class="group-desc">${g.desc}</div>`;
+    jumps += `<button class="jump" style="--jc:${g.c}" onclick="jumpTo('g-${g.key}')">${g.ico} ${g.title} ${items.length}</button>`;
+    html += `<div class="group-title" id="g-${g.key}" style="--gc:${g.c}"><span class="g-ico">${g.ico}</span>${g.title}<span class="cnt">${items.length}</span></div><div class="group-desc">${g.desc}</div>`;
     html += items.map(x => card(x.p, x.res, g.c)).join('');
   });
 
@@ -420,12 +473,17 @@ function showResults() {
     const covered = [...COVERED_SIDO].join('·');
     html += `<div class="region-notice">📍 지금은 <b>${covered}</b> 지역 정보를 먼저 담고 있어요. ${u.sido} 지역의 교육청·구청 지원은 순차적으로 추가할 예정이에요. 위의 전국 공통 제도는 ${u.sido}에서도 똑같이 신청할 수 있어요.</div>`;
   }
-  if (!html) html = '<div class="empty">조건에 맞는 제도가 없어요.<br>상태(장애등록·진단서 등)를 바꿔서 다시 찾아보세요.</div>';
+  if (!html) html = '<div class="empty">조건에 맞는 제도가 없어요.<br>상태(장애등록·진단서 등)를 바꾸거나 필터를 해제하고 다시 찾아보세요.</div>';
+
+  // 그룹이 3개 이상일 때만 점프바 표시
+  const groupCount = (jumps.match(/class="jump"/g) || []).length;
+  $('#jumpbar').innerHTML = groupCount >= 3 ? `<nav class="jumpbar" aria-label="결과 그룹 바로가기">${jumps}</nav>` : '';
 
   $('#resultList').innerHTML = html;
   $('#form').style.display = 'none';
   $('#results').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  saveStateToURL(u);
+  if (!keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function backToForm() {
@@ -438,12 +496,35 @@ function copyLink() {
   navigator.clipboard.writeText(location.href).then(() => {
     const btn = $('#shareBtn');
     btn.textContent = '✅ 복사됐어요!';
-    setTimeout(() => { btn.textContent = '🔗 링크 복사'; }, 1600);
+    setTimeout(() => { btn.textContent = '🔗 결과 공유'; }, 1600);
   });
 }
 
+// 맨 위로 플로팅 버튼
+window.addEventListener('scroll', () => {
+  $('#fabTop').classList.toggle('show', window.scrollY > 600);
+}, { passive: true });
+
 // 히어로 제도 수 실데이터 반영
 $('#statCount').textContent = PROGRAMS.length;
+
+// URL에 저장된 조건이 있으면 복원 후 바로 결과 표시 (새로고침·공유 링크 대응)
+(function restoreFromURL() {
+  const q = new URLSearchParams(location.search);
+  if (!q.has('y')) return;
+  if (q.get('y')) yearSel.value = q.get('y');
+  if (q.get('m')) monthSel.value = q.get('m');
+  if (q.get('sd')) { $('#sido').value = q.get('sd'); $('#sido').dispatchEvent(new Event('change')); }
+  if (q.get('sg')) $('#sigungu').value = q.get('sg');
+  (q.get('st') || '').split(',').filter(Boolean).forEach(k => {
+    const c = document.querySelector(`#statusChips .chip[data-key="${k}"]`);
+    if (c) { c.classList.add('on'); syncPressed(c); }
+  });
+  document.querySelectorAll('#incomeChips .chip').forEach(c => { c.classList.remove('on'); syncPressed(c); });
+  const inc = document.querySelector(`#incomeChips .chip[data-val="${q.get('inc') || '0'}"]`);
+  if (inc) { inc.classList.add('on'); syncPressed(inc); }
+  showResults(true);
+})();
 </script>
 </body>
 </html>
