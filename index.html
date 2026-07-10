@@ -11,6 +11,21 @@
 <meta property="og:description" content="발달이 느린 아이를 위한 정부·교육청·우리 동네 지원제도, 아이 정보만 고르면 받을 수 있는 것만 골라 보여드려요.">
 <meta property="og:locale" content="ko_KR">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<!-- GA4: 아래 GA_ID 값에 측정 ID(G-XXXXXXXXXX)를 넣으면 자동 활성화됩니다. 비어 있으면 아무 것도 로드하지 않아요. -->
+<script>
+window.GA_ID = ''; // 예: 'G-ABCD1234EF'
+function track(name, params) { if (window.gtag) window.gtag('event', name, params || {}); }
+(function () {
+  if (!window.GA_ID) { window.track = track; return; }
+  const s = document.createElement('script');
+  s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', window.GA_ID);
+})();
+</script>
 <style>
 :root{
   --bg:#f5f8f5; --card:#ffffff; --ink:#1e2b28; --sub:#5b6e69;
@@ -115,6 +130,12 @@ select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47
 .region-notice{margin-top:18px;background:linear-gradient(120deg,#e3f0ec,#eef4ee);border:1px solid rgba(47,125,109,.15);border-radius:var(--radius);padding:15px 17px;font-size:13.5px;color:var(--brand-deep);line-height:1.6}
 
 /* ── 사용성: 점프바·접기·전화링크·플로팅 ── */
+.searchbar{margin:14px 0 0;position:relative}
+.searchbar input{width:100%;padding:12px 38px 12px 40px;font-size:15px;font-family:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:12px;background:#fff}
+.searchbar input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(47,125,109,.12)}
+.searchbar .ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:15px;opacity:.5;pointer-events:none}
+.searchbar .clr{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:#eef1f0;color:var(--sub);width:24px;height:24px;border-radius:50%;font-size:14px;cursor:pointer;display:none;line-height:1}
+.searchbar .clr.show{display:block}
 .jumpbar{position:sticky;top:8px;z-index:50;display:flex;gap:7px;overflow-x:auto;padding:8px;margin:14px 0 0;background:rgba(245,248,245,.93);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;scrollbar-width:none}
 .jumpbar::-webkit-scrollbar{display:none}
 .jump{flex:none;font-size:12.5px;font-weight:700;font-family:inherit;border:none;cursor:pointer;padding:7px 13px;border-radius:999px;background:color-mix(in srgb, var(--jc) 12%, white);color:color-mix(in srgb, var(--jc) 75%, black);white-space:nowrap}
@@ -203,9 +224,11 @@ footer .report:hover{background:var(--brand);color:#fff}
   <div class="q-block">
     <div class="q-label"><span class="q-num">4</span>💰 가구 소득은 어느 정도인가요? <span class="q-hint">대략이면 충분해요</span></div>
     <div class="chips" id="incomeChips">
-      <button type="button" class="chip" data-val="120">기준중위소득 120% 이하</button>
-      <button type="button" class="chip" data-val="180">120~180% 사이</button>
-      <button type="button" class="chip" data-val="999">180% 넘어요</button>
+      <button type="button" class="chip" data-val="120">중위소득 120% 이하</button>
+      <button type="button" class="chip" data-val="150">120~150%</button>
+      <button type="button" class="chip" data-val="180">150~180%</button>
+      <button type="button" class="chip" data-val="250">180~250%</button>
+      <button type="button" class="chip" data-val="999">250% 넘어요</button>
       <button type="button" class="chip on" data-val="0">잘 모르겠어요</button>
     </div>
   </div>
@@ -225,6 +248,11 @@ footer .report:hover{background:var(--brand);color:#fff}
       <button class="sum-btn" onclick="window.print()">🖨️ 인쇄</button>
     </div>
   </div>
+  <div class="searchbar">
+    <span class="ico">🔍</span>
+    <input id="searchInput" type="search" inputmode="search" placeholder="제도·기관 이름으로 찾기 (예: 발달재활, 언어)" aria-label="제도 검색" oninput="onSearch()">
+    <button class="clr" id="searchClr" onclick="clearSearch()" aria-label="검색어 지우기">✕</button>
+  </div>
   <div id="jumpbar"></div>
   <div id="resultList"></div>
 </section>
@@ -239,7 +267,7 @@ footer .report:hover{background:var(--brand);color:#fff}
 
 </div>
 
-<script src="data/programs.js?v=282"></script>
+<script src="data/programs.js?v=283"></script>
 <script>
 // ---------- 폼 초기화 ----------
 const $ = s => document.querySelector(s);
@@ -488,6 +516,31 @@ function toggleOnlyOk() {
   showResults(true);
 }
 
+// 결과 내 이름 검색
+let searchQuery = '';
+let searchTrackTimer = null;
+function onSearch() {
+  searchQuery = $('#searchInput').value.trim().toLowerCase();
+  $('#searchClr').classList.toggle('show', !!searchQuery);
+  showResults(true);
+  // 타이핑 멈춘 뒤 1초 후 검색어 계측 (글자마다 이벤트 방지)
+  clearTimeout(searchTrackTimer);
+  if (searchQuery) searchTrackTimer = setTimeout(() => track('search', { term: searchQuery }), 1000);
+}
+function clearSearch() {
+  $('#searchInput').value = '';
+  searchQuery = '';
+  $('#searchClr').classList.remove('show');
+  showResults(true);
+  $('#searchInput').focus();
+}
+// 검색어 매칭: 제도명·기관·혜택 텍스트 대상 (HTML 태그 제거 후)
+function matchesSearch(p) {
+  if (!searchQuery) return true;
+  const hay = [p.name, p.agency, p.benefit, p.target_age].join(' ').replace(/<[^>]+>/g, '').toLowerCase();
+  return hay.includes(searchQuery);
+}
+
 // 현재 조건을 URL에 저장 → 새로고침 복원·조건 포함 공유 가능
 function saveStateToURL(u) {
   const q = new URLSearchParams({ y: yearSel.value, m: monthSel.value, sd: u.sido, inc: String(u.income) });
@@ -511,10 +564,13 @@ function showResults(keepScroll) {
   const okCount = matched.filter(x => x.res.show === 'ok').length;
   const checkCount = matched.length - okCount;
   if (onlyOk) matched = matched.filter(x => x.res.show === 'ok');
+  if (searchQuery) matched = matched.filter(x => matchesSearch(x.p));
 
-  $('#sumText').innerHTML = matched.length || checkCount
-    ? `지금 조건으로 <em>${okCount}</em>개 제도가 해당돼요${checkCount ? `<br><span style="font-size:13.5px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개${onlyOk ? ' (숨김)' : ''}</span>` : ''}`
-    : '조건에 맞는 제도를 찾지 못했어요';
+  $('#sumText').innerHTML = searchQuery
+    ? `<em>${matched.length}</em>개 제도가 검색됐어요 <span style="font-size:13.5px;color:var(--sub)">"${searchQuery}"</span>`
+    : (matched.length || checkCount
+      ? `지금 조건으로 <em>${okCount}</em>개 제도가 해당돼요${checkCount ? `<br><span style="font-size:13.5px;color:var(--sub)">+ 조건 확인이 필요한 제도 ${checkCount}개${onlyOk ? ' (숨김)' : ''}</span>` : ''}`
+      : '조건에 맞는 제도를 찾지 못했어요');
 
   let html = '', jumps = '';
   GROUPS.forEach(g => {
@@ -530,7 +586,9 @@ function showResults(keepScroll) {
     const covered = [...COVERED_SIDO].join('·');
     html += `<div class="region-notice">📍 지금은 <b>${covered}</b> 지역 정보를 먼저 담고 있어요. ${u.sido} 지역의 교육청·구청 지원은 순차적으로 추가할 예정이에요. 위의 전국 공통 제도는 ${u.sido}에서도 똑같이 신청할 수 있어요.</div>`;
   }
-  if (!html) html = '<div class="empty">조건에 맞는 제도가 없어요.<br>상태(장애등록·진단서 등)를 바꾸거나 필터를 해제하고 다시 찾아보세요.</div>';
+  if (!html) html = searchQuery
+    ? `<div class="empty">"${searchQuery}"에 해당하는 제도를 못 찾았어요.<br>다른 단어로 검색하거나 검색어를 지워보세요.</div>`
+    : '<div class="empty">조건에 맞는 제도가 없어요.<br>상태(장애등록·진단서 등)를 바꾸거나 필터를 해제하고 다시 찾아보세요.</div>';
 
   // 그룹이 3개 이상일 때만 점프바 표시
   const groupCount = (jumps.match(/class="jump"/g) || []).length;
@@ -540,7 +598,11 @@ function showResults(keepScroll) {
   $('#form').style.display = 'none';
   $('#results').style.display = 'block';
   saveStateToURL(u);
-  if (!keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!keepScroll) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 최초 결과 조회만 계측 (검색·필터 재렌더는 제외)
+    track('view_results', { region: u.sido + (u.sigungu ? ' ' + u.sigungu : ''), ok_count: okCount, total: matched.length });
+  }
 }
 
 function backToForm() {
@@ -560,6 +622,14 @@ function copyLink() {
 // 맨 위로 플로팅 버튼
 window.addEventListener('scroll', () => {
   $('#fabTop').classList.toggle('show', window.scrollY > 600);
+}, { passive: true });
+
+// 전화 클릭·공식 안내 클릭 계측 (결과 영역 이벤트 위임)
+$('#resultList').addEventListener('click', e => {
+  const tel = e.target.closest('a.tel');
+  if (tel) { track('tel_click', { number: tel.getAttribute('href').replace('tel:', '') }); return; }
+  const link = e.target.closest('a.link-btn');
+  if (link) { const h3 = link.closest('.pcard')?.querySelector('h3'); track('official_link', { program: h3 ? h3.textContent : '' }); }
 }, { passive: true });
 
 // 인쇄 시 접힌 실무 팁을 모두 펼치고, 끝나면 원래대로
