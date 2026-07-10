@@ -238,7 +238,7 @@ const PROGRAMS = [
     benefit: "온라인 발달검사 → 의심군은 심화검사 1회 + 언어·놀이·소근육 등 발달치료 최대 11회, <b>총 12회 전액 무료</b>. 부모상담 프로그램 병행.",
     how_to_apply: "'부모다움' 누리집(bumo.iccic.or.kr)에서 온라인 신청 (유형별 순차 모집)",
     note: "장애등록·소득 무관 무료라서 병원 대기 중 조기개입 창구로 정말 유용해요. 모집이 빨리 마감되니 연간 모집 일정을 미리 확인하세요.",
-    link: "http://bumo.iccic.or.kr/",
+    link: "https://bumo.iccic.or.kr/",
     verified: "2026 확인 (고고고 프로젝트Ⅱ 확대 운영)"
   },
   {
@@ -513,7 +513,7 @@ const PROGRAMS = [
     benefit: "치료지원비 <b>월 16만원</b>(굳센카드). 물리·작업치료, 언어재활 등 장애유형별 치료영역을 등록 제공기관에서 이용. 월 잔액은 다음 달로 이월돼요(연도 이월은 불가). 제로페이 QR 모바일결제도 가능.",
     how_to_apply: "학교에 치료지원 신청 → 특수교육지원센터 진단·평가 → 개별화교육지원팀 결정 → 굳센카드 발급",
     note: "발달재활 바우처와 같은 치료영역은 중복 제한이 있어요 — 영역을 달리해 병행할 수 있는지 학교·센터에 확인하세요.",
-    link: "http://good.sen.go.kr/",
+    link: "https://good.sen.go.kr/",
     verified: "2026 확인 (교육청 FAQ 현행 기준)"
   },
   {
@@ -767,7 +767,7 @@ const PROGRAMS = [
     benefit: "영유아 <b>발달 선별검사·관찰 + 발달증진 프로그램 + 부모상담</b> 무료 연계. 부모상담실·놀이체험실도 무료 운영.",
     how_to_apply: "센터 홈페이지 연도별 모집 공고에 따라 어린이집 또는 보호자가 신청 (2026년 모집 확인)",
     note: "K-DST '심화평가 권고' 전 단계의 무료 발달 점검 창구로 좋아요. 전주시 거주라면 전주시육아종합지원센터 프로그램도 함께 확인하세요.",
-    link: "http://jeonbuk.childcare.go.kr/ccef/main.jsp",
+    link: "https://jeonbuk.childcare.go.kr/ccef/main.jsp",
     verified: "2025~2026 (모집 공고 확인)"
   },
   {
@@ -1183,7 +1183,7 @@ const PROGRAMS = [
     benefit: "정신건강 상담·선별검사·사례관리, 24시간 위기상담(1577-0199) — <b>무료</b>.",
     how_to_apply: "전화 상담 후 방문. 아동 정서행동 문제는 담당자 연결 요청",
     note: "학령기 고민은 동구청소년상담복지센터(dg1388.com)도 함께 확인하면 좋아요.",
-    link: "http://www.hmt.or.kr/",
+    link: "https://www.hmt.or.kr/",
     verified: "2026 확인"
   },
 
@@ -2168,7 +2168,7 @@ const PROGRAMS = [
     benefit: "육아 상담·부모교육·정보제공, 장난감·도서 대여 — 시 직영, 본센터·서부권 2곳.",
     how_to_apply: "전화 문의 후 방문 (카카오톡 채널 운영)",
     note: "발달검사 상설 프로그램 여부는 전화로 확인하세요. 익산시정신건강복지센터(063-841-4235)도 아동 심리지원 창구예요.",
-    link: "http://childcare.iksan.go.kr/",
+    link: "https://childcare.iksan.go.kr/",
     verified: "2026 확인"
   },
   {
@@ -2555,7 +2555,7 @@ const PROGRAMS = [
     benefit: "소아재활 외래·치료(물리·작업·언어). 충북대병원 소아재활·뇌신경병동 28병상이 <b>2026년 2월 개소</b>해 도내 인프라가 확충됐어요.",
     how_to_apply: "병원 진료 예약 (재활의학과 진단 후 치료 배정)",
     note: "대기가 있을 수 있으니 초진 예약부터 걸어두세요.",
-    link: "http://www.cjmckid.or.kr/",
+    link: "https://www.cjmckid.or.kr/",
     verified: "2026 확인"
   },
   {
@@ -3763,7 +3763,7 @@ const PROGRAMS = [
     benefit: "📞 <b>모자보건</b> 출산정책팀 031-310-5838 (정왕 모아건강팀 031-310-6803) · <b>드림스타트센터</b> 031-310-2728 · <b>정신건강복지센터</b> 031-316-6661 · <b>육아종합지원센터</b> 031-431-5682",
     how_to_apply: "각 창구에 전화 문의 — 영유아검진 '심화평가 권고'는 보건소로",
     note: "시흥 드림스타트는 느린학습 아동 사회성 프로그램('슬기로운 레시피')을 운영한 이력이 있어요 — 느린학습자 가정이면 문의해 보세요.",
-    link: "http://www.siheung.go.kr/portal/contents.do?mId=0302020500",
+    link: "https://www.siheung.go.kr/portal/contents.do?mId=0302020500",
     verified: "2026 확인"
   },
   {
