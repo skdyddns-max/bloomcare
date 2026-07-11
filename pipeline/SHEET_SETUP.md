@@ -32,30 +32,31 @@
 
 ---
 
-## 매번: 고치고 반영하기
+## 매번: 고치고 반영하기 (다운로드 방식 — 채택)
 
 1. **구글 시트에서 셀 편집** (금액·전화번호·문구 등)
    - 새 제도 = 새 행 추가 / 삭제 = 행 삭제
    - `id`는 고유해야 하고, 굵게는 `<b>...</b>`, 지역은 `scope` 열 규칙을 따르세요(아래 참고).
 
-2. **빌드**
+2. **CSV로 다운로드**: 시트에서 `파일 → 다운로드 → 쉼표로 구분된 값(.csv)`
+   (다운로드 폴더에 저장됩니다. 이름은 무엇이든 상관없어요.)
+
+3. **한 줄 실행** — 다운로드 폴더의 최신 CSV를 자동으로 잡아 검증·빌드:
    ```bash
-   # 게시 URL로 바로:
-   node pipeline/build.mjs --url "$(cat pipeline/sheet-url.txt)"
-
-   # 또는 시트를 CSV로 내려받아 파일로:
-   node pipeline/build.mjs pipeline/programs.csv
+   cd ~/projects/child-support-map
+   bash pipeline/update.sh
    ```
-   - 검증을 통과하면 `data/programs.js`가 새로 써지고 **캐시버스터(`?v=`)가 건수에 맞춰 자동 증가**합니다.
-   - 오류(필수 필드 누락·id 중복·연령 역전·`<b>` 태그 짝 오류·`variant_of` 참조 없음)가 있으면 **빌드를 멈추고** 무엇이 문제인지 알려줍니다.
+   - 통과하면 `data/programs.js`가 새로 써지고 **캐시버스터(`?v=`)가 자동 증가**합니다.
+   - 오류(필수 필드 누락·id 중복·연령 역전·`<b>` 태그 짝·`variant_of` 참조 없음)가 있으면 **빌드를 멈추고** 무엇이 문제인지 알려줍니다. 시트에서 고치고 다시 다운로드→실행하면 돼요.
 
-3. **배포**
+4. **배포**:
    ```bash
    git add -A && git commit -m "데이터 수정: (내용)" && git push
    ```
    몇 분 뒤 https://skdyddns-max.github.io/bloomcare/ 에 반영됩니다.
 
-빌드 없이 검증만: `node pipeline/build.mjs --check`
+> 검증만 미리 보고 싶으면: `node pipeline/build.mjs --check pipeline/programs.csv`
+> (참고) '웹에 게시 URL' 방식을 쓰고 싶으면 `node pipeline/build.mjs --url "<게시CSV주소>"` 도 지원합니다.
 
 ---
 
