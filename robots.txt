@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://skdyddns-max.github.io/bloomcare/sitemap.xml
