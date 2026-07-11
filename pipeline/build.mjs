@@ -7,6 +7,7 @@
 //   node pipeline/build.mjs --url "<게시 CSV URL>"  # 구글 시트 '웹에 게시' CSV URL로 빌드
 //   node pipeline/build.mjs --check              # 빌드 없이 검증만
 import { readFileSync, writeFileSync } from 'fs';
+import { createHash } from 'crypto';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { parseCSV, rowsToPrograms, toProgramsJS, validate } from './lib.mjs';
@@ -46,15 +47,22 @@ console.log('✅ 검증 통과 (오류 0건)');
 if (checkOnly) { console.log('\n(--check: 파일을 쓰지 않았습니다.)'); process.exit(0); }
 
 // 1) data/programs.js 재생성
-writeFileSync(join(root, 'data', 'programs.js'), toProgramsJS(rows));
+const js = toProgramsJS(rows);
+writeFileSync(join(root, 'data', 'programs.js'), js);
 console.log(`\n💾 data/programs.js 갱신 (${rows.length}건)`);
 
-// 2) index.html 캐시버스터 자동 증가 → 현재 건수로 맞춤
+// 2) 캐시버스터 = 건수 + 내용 해시 6자리 (내용이 바뀌면 무조건 버전이 바뀜)
+const hash = createHash('sha1').update(js).digest('hex').slice(0, 6);
+const version = `${rows.length}-${hash}`;
 const idxPath = join(root, 'index.html');
 let html = readFileSync(idxPath, 'utf8');
-const before = html;
-html = html.replace(/(data\/programs\.js\?v=)\d+/, `$1${rows.length}`);
-if (html !== before) { writeFileSync(idxPath, html); console.log(`🔖 캐시버스터 → ?v=${rows.length}`); }
-else console.log('⚠️  index.html 에서 캐시버스터 패턴을 못 찾음 — 수동 확인 필요');
+const re = /(data\/programs\.js\?v=)[\w-]+/;
+if (!re.test(html)) {
+  console.log('⚠️  index.html 에서 캐시버스터 패턴(data/programs.js?v=…)을 못 찾음 — 수동 확인 필요');
+} else {
+  const newHtml = html.replace(re, `$1${version}`);
+  if (newHtml !== html) { writeFileSync(idxPath, newHtml); console.log(`🔖 캐시버스터 → ?v=${version}`); }
+  else console.log(`🔖 캐시버스터 유지 (내용 동일): ?v=${version}`);
+}
 
 console.log('\n다음: git add -A && git commit && git push  → 몇 분 뒤 라이브 반영');
